@@ -230,194 +230,107 @@ window.addEventListener("popstate",()=>{
       
       </div>
 
-        <script async src='https://securepubads.g.doubleclick.net/tag/js/gpt.js'></script>
-        <script>
-            (function (window) {
-                window.googletag = window.googletag || { cmd: [] };
-                googletag.cmd = googletag.cmd || [];
-                
-                // Immediate execution for rewarded ad
-                googletag.cmd.push(function() {
-                    let rewardedSlot = googletag.defineOutOfPageSlot(
-                        "/22904833613/rewardnew",
-                        googletag.enums.OutOfPageFormat.REWARDED
-                    );
+<script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
 
-                    if (rewardedSlot) {
-                        rewardedSlot.addService(googletag.pubads());
-                        
-                        googletag.pubads().addEventListener("rewardedSlotReady", function(event) {
-                            if (event.slot === rewardedSlot) {
-                                // Force immediate visibility
-                                event.makeRewardedVisible();
-                                console.log("Rewarded ad is ready to show");
-                            }
-                        });
-                        
-                        googletag.enableServices();
-                        googletag.display(rewardedSlot);
-                    }
-                });
+<style>
+  #ad-timer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.8);
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-family: sans-serif;
+    font-size: 16px;
+    z-index: 9999;
+    display: none;
+  }
+</style>
 
-                // Quick fallback if first ad doesn't load
-                setTimeout(function() {
-                    googletag.cmd.push(function() {
-                        let rewardedSlot2 = googletag.defineOutOfPageSlot(
-                            "/22904833613/newshort5",
-                            googletag.enums.OutOfPageFormat.REWARDED
-                        );
-
-                        if (rewardedSlot2) {
-                            rewardedSlot2.addService(googletag.pubads());
-                            
-                            googletag.pubads().addEventListener("rewardedSlotReady", function(event) {
-                                if (event.slot === rewardedSlot2) {
-                                    event.makeRewardedVisible();
-                                    console.log("Second rewarded ad is ready to show");
-                                }
-                            });
-                            
-                            googletag.enableServices();
-                            googletag.display(rewardedSlot2);
-                        }
-                    });
-                }, 70); // Reduced to 2 seconds
-            })(window);
-        </script>
-<script>
-    (function(window) {
-        window.googletag = window.googletag || { cmd: [] };
-        googletag.cmd = googletag.cmd || [];
-
-        let rewardedSlot;
-
-        // سيتم الانتظار لمدة 5 ثوانٍ قبل تنفيذ الكود الداخلي
-        setTimeout(function() {
-            googletag.cmd.push(() => {
-                let target = ""; // أضفت تعريف `target` هنا لتجنب الأخطاء
-
-                if (target.length === 0) {
-                    rewardedSlot = googletag.defineOutOfPageSlot(
-                        "/22904833613/reward1-1",
-                        googletag.enums.OutOfPageFormat.REWARDED,
-                    );
-                } else {
-                    rewardedSlot = googletag.defineOutOfPageSlot(
-                        "/22904833613/newshort1",
-                        googletag.enums.OutOfPageFormat.REWARDED,
-                    ).setTargeting('target', ['']);
-                }
-
-                // Slot returns null if the page or device does not support rewarded ads.
-                if (rewardedSlot) {
-                    window.dismissRewardedAd170983604565ea070d5136f = function() {
-                        googletag.destroySlots([rewardedSlot]);
-                    }
-
-                    rewardedSlot.addService(googletag.pubads());
-
-                    googletag.pubads().addEventListener("rewardedSlotReady", (event) => {
-                        // سيتم إظهار الإعلان بعد مرور 5 ثوانٍ
-                        setTimeout(() => {
-                            event.makeRewardedVisible();
-                            applyStyles();
-                        }, 50000);
-                    });
-
-                    googletag.pubads().addEventListener("rewardedSlotClosed", dismissRewardedAd170983604565ea070d5136f);
-
-                    googletag.pubads().addEventListener("rewardedSlotGranted", (event) => {
-                        if (rewardedSlot) {
-                            googletag.destroySlots([rewardedSlot]);
-                        }
-                    });
-
-                    googletag.enableServices();
-                    googletag.display(rewardedSlot);
-                    if (googletag.pubads().isInitialLoadDisabled()) {
-                        googletag.pubads().refresh([rewardedSlot]);
-                    }
-
-                    googletag.pubads().addEventListener("slotRenderEnded", (event) => {
-                        const slot = event.slot;
-                        if (slot === rewardedSlot) {
-                            var containsAds = !event.isEmpty;
-                            if (containsAds === true) {
-                                var slotId = slot.getSlotElementId();
-                                document.getElementById(slotId).style.cssText += (black + '');
-                            }
-                        }
-                    });
-                } else {
-                    console.log("no rewarded ad");
-                }
-            });
-        }, 5000); // تأخير 5000 مللي ثانية (5 ثوانٍ)
-    }(window));
-</script>
-
-
-
+<div id="ad-timer">الإعلان القادم خلال 10 ثانية</div>
 
 <script>
-    (function (window) {
-        window.googletag = window.googletag || { cmd: [] };
-        googletag.cmd = googletag.cmd || [];
+  window.googletag = window.googletag || { cmd: [] };
 
-        let rewardedSlot1, rewardedSlot2;
+  googletag.cmd.push(() => {
+    const adUnits = [
+      "/23294477490/uptodown.com/uptodown.com_reward1",
+      "/23294477490/uptodown.com/uptodown.com_reward2",
+      "/23294477490/uptodown.com/uptodown.com_reward3",
+      "/23294477490/uptodown.com/uptodown.com_reward4"
+    ];
 
-        // عرض الإعلان الأول مباشرة
-        googletag.cmd.push(() => {
-            rewardedSlot1 = googletag.defineOutOfPageSlot(
-                "/22904833613/rew3",
-                googletag.enums.OutOfPageFormat.REWARDED
-            );
+    let currentIndex = 0;
+    const timerBox = document.getElementById("ad-timer");
+    let countdownInterval;
 
-            if (rewardedSlot1) {
-                rewardedSlot1.addService(googletag.pubads());
+    function showRewardedAd(unitPath, callback) {
+      const rewardedSlot = googletag.defineOutOfPageSlot(
+        unitPath,
+        googletag.enums.OutOfPageFormat.REWARDED
+      );
 
-                googletag.pubads().addEventListener("rewardedSlotReady", (event) => {
-                    if (event.slot === rewardedSlot1) {
-                        event.makeRewardedVisible();
-                    }
-                });
+      if (!rewardedSlot) {
+        console.log("❌ لم يتم إنشاء الإعلان:", unitPath);
+        if (callback) callback();
+        return;
+      }
 
-                googletag.enableServices();
-                googletag.display(rewardedSlot1);
-            } else {
-                console.log("لا يوجد إعلان مكافأة للإعلان الأول");
-            }
-        });
+      rewardedSlot.addService(googletag.pubads());
 
-        // عرض الإعلان الثاني كل 20 ثانية
-        setInterval(() => {
-            googletag.cmd.push(() => {
-                rewardedSlot2 = googletag.defineOutOfPageSlot(
-                    "/22904833613/newreward",
-                    googletag.enums.OutOfPageFormat.REWARDED
-                );
+      googletag.pubads().addEventListener("rewardedSlotReady", (event) => {
+        if (event.slot === rewardedSlot) {
+          console.log("✅ الإعلان جاهز:", unitPath);
+          timerBox.style.display = "none"; // إخفاء العداد عند ظهور الإعلان
+          event.makeRewardedVisible();
+        }
+      });
 
-                if (rewardedSlot2) {
-                    rewardedSlot2.addService(googletag.pubads());
+      googletag.pubads().addEventListener("rewardedSlotClosed", () => {
+        console.log("ℹ️ الإعلان أغلق:", unitPath);
+        googletag.destroySlots([rewardedSlot]);
+        if (callback) callback();
+      });
 
-                    googletag.pubads().addEventListener("rewardedSlotReady", (event) => {
-                        if (event.slot === rewardedSlot2) {
-                            event.makeRewardedVisible();
-                        }
-                    });
+      googletag.enableServices();
+      googletag.display(rewardedSlot);
+    }
 
-                    googletag.enableServices();
-                    googletag.display(rewardedSlot2);
-                } else {
-                    console.log("لا يوجد إعلان مكافأة للإعلان الثاني");
-                }
-            });
-        }, 20000); // تأخير 20 ثانية بين كل عرض
-    })(window);
+    function startCountdown(seconds, onFinish) {
+      let remaining = seconds;
+      timerBox.style.display = "block";
+      timerBox.textContent = `الإعلان القادم خلال ${remaining} ثانية`;
+
+      clearInterval(countdownInterval);
+      countdownInterval = setInterval(() => {
+        remaining--;
+        timerBox.textContent = `الإعلان القادم خلال ${remaining} ثانية`;
+
+        if (remaining <= 0) {
+          clearInterval(countdownInterval);
+          timerBox.style.display = "none";
+          if (onFinish) onFinish();
+        }
+      }, 1000);
+    }
+
+    function showAdsLoop() {
+      const unitPath = adUnits[currentIndex];
+      showRewardedAd(unitPath, () => {
+        currentIndex = (currentIndex + 1) % adUnits.length;
+        startCountdown(10, showAdsLoop);
+      });
+    }
+
+    // أول إعلان يبدأ مباشرة
+    showAdsLoop();
+  });
 </script>
 
 </body>
 </html>
+
 
 
 
