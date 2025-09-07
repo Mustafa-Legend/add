@@ -230,63 +230,195 @@ window.addEventListener("popstate",()=>{
       
       </div>
 
-<script async="async" src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+        <script async='async' crossorigin='anonymous' data-page-url='https://uptodown.com' src='https://securepubads.g.doubleclick.net/tag/js/gpt.js'></script>
+        <script>
+            (function (window) {
+                window.googletag = window.googletag || { cmd: [] };
+                googletag.cmd = googletag.cmd || [];
+                
+                // Immediate execution for rewarded ad
+                googletag.cmd.push(function() {
+                    let rewardedSlot = googletag.defineOutOfPageSlot(
+                        "/22904833613/rewardnew",
+                        googletag.enums.OutOfPageFormat.REWARDED
+                    );
+
+                    if (rewardedSlot) {
+                        rewardedSlot.addService(googletag.pubads());
+                        
+                        googletag.pubads().addEventListener("rewardedSlotReady", function(event) {
+                            if (event.slot === rewardedSlot) {
+                                // Force immediate visibility
+                                event.makeRewardedVisible();
+                                console.log("Rewarded ad is ready to show");
+                            }
+                        });
+                        
+                        googletag.enableServices();
+                        googletag.display(rewardedSlot);
+                    }
+                });
+
+                // Quick fallback if first ad doesn't load
+                setTimeout(function() {
+                    googletag.cmd.push(function() {
+                        let rewardedSlot2 = googletag.defineOutOfPageSlot(
+                            "/22904833613/newshort5",
+                            googletag.enums.OutOfPageFormat.REWARDED
+                        );
+
+                        if (rewardedSlot2) {
+                            rewardedSlot2.addService(googletag.pubads());
+                            
+                            googletag.pubads().addEventListener("rewardedSlotReady", function(event) {
+                                if (event.slot === rewardedSlot2) {
+                                    event.makeRewardedVisible();
+                                    console.log("Second rewarded ad is ready to show");
+                                }
+                            });
+                            
+                            googletag.enableServices();
+                            googletag.display(rewardedSlot2);
+                        }
+                    });
+                }, 70); // Reduced to 2 seconds
+            })(window);
+        </script>
+<script>
+    (function(window) {
+        window.googletag = window.googletag || { cmd: [] };
+        googletag.cmd = googletag.cmd || [];
+
+        let rewardedSlot;
+
+        // سيتم الانتظار لمدة 5 ثوانٍ قبل تنفيذ الكود الداخلي
+        setTimeout(function() {
+            googletag.cmd.push(() => {
+                let target = ""; // أضفت تعريف `target` هنا لتجنب الأخطاء
+
+                if (target.length === 0) {
+                    rewardedSlot = googletag.defineOutOfPageSlot(
+                        "/22904833613/reward1-1",
+                        googletag.enums.OutOfPageFormat.REWARDED,
+                    );
+                } else {
+                    rewardedSlot = googletag.defineOutOfPageSlot(
+                        "/22904833613/newshort1",
+                        googletag.enums.OutOfPageFormat.REWARDED,
+                    ).setTargeting('target', ['']);
+                }
+
+                // Slot returns null if the page or device does not support rewarded ads.
+                if (rewardedSlot) {
+                    window.dismissRewardedAd170983604565ea070d5136f = function() {
+                        googletag.destroySlots([rewardedSlot]);
+                    }
+
+                    rewardedSlot.addService(googletag.pubads());
+
+                    googletag.pubads().addEventListener("rewardedSlotReady", (event) => {
+                        // سيتم إظهار الإعلان بعد مرور 5 ثوانٍ
+                        setTimeout(() => {
+                            event.makeRewardedVisible();
+                            applyStyles();
+                        }, 50000);
+                    });
+
+                    googletag.pubads().addEventListener("rewardedSlotClosed", dismissRewardedAd170983604565ea070d5136f);
+
+                    googletag.pubads().addEventListener("rewardedSlotGranted", (event) => {
+                        if (rewardedSlot) {
+                            googletag.destroySlots([rewardedSlot]);
+                        }
+                    });
+
+                    googletag.enableServices();
+                    googletag.display(rewardedSlot);
+                    if (googletag.pubads().isInitialLoadDisabled()) {
+                        googletag.pubads().refresh([rewardedSlot]);
+                    }
+
+                    googletag.pubads().addEventListener("slotRenderEnded", (event) => {
+                        const slot = event.slot;
+                        if (slot === rewardedSlot) {
+                            var containsAds = !event.isEmpty;
+                            if (containsAds === true) {
+                                var slotId = slot.getSlotElementId();
+                                document.getElementById(slotId).style.cssText += (black + '');
+                            }
+                        }
+                    });
+                } else {
+                    console.log("no rewarded ad");
+                }
+            });
+        }, 5000); // تأخير 5000 مللي ثانية (5 ثوانٍ)
+    }(window));
+</script>
+
+
+
 
 <script>
-window.googletag = window.googletag || { cmd: [] };
+    (function (window) {
+        window.googletag = window.googletag || { cmd: [] };
+        googletag.cmd = googletag.cmd || [];
 
-// دالة لإنشاء وإظهار إعلان مكافأة
-function showRewardedAd(slotName, callback) {
-    const rewardedSlot = googletag.defineOutOfPageSlot(
-        slotName,
-        googletag.enums.OutOfPageFormat.REWARDED
-    ).addService(googletag.pubads());
+        let rewardedSlot1, rewardedSlot2;
 
-    rewardedSlot.setForceSafeFrame(true);
-    googletag.pubads().enableAsyncRendering();
-    googletag.enableServices();
+        // عرض الإعلان الأول مباشرة
+        googletag.cmd.push(() => {
+            rewardedSlot1 = googletag.defineOutOfPageSlot(
+                "/22904833613/rew3",
+                googletag.enums.OutOfPageFormat.REWARDED
+            );
 
-    googletag.pubads().addEventListener('rewardedSlotReady', (evt) => {
-        evt.makeRewardedVisible();
-    });
+            if (rewardedSlot1) {
+                rewardedSlot1.addService(googletag.pubads());
 
-    googletag.pubads().addEventListener('rewardedSlotClosed', (evt) => {
-        try { evt.stopImmediatePropagation?.(); evt.preventDefault?.(); } 
-        catch(e){ console.warn("Event control failed:", e); }
-        if (callback) callback(); // تنفيذ الدالة التالية بعد الإغلاق
-    });
+                googletag.pubads().addEventListener("rewardedSlotReady", (event) => {
+                    if (event.slot === rewardedSlot1) {
+                        event.makeRewardedVisible();
+                    }
+                });
 
-    googletag.display(rewardedSlot);
-}
+                googletag.enableServices();
+                googletag.display(rewardedSlot1);
+            } else {
+                console.log("لا يوجد إعلان مكافأة للإعلان الأول");
+            }
+        });
 
-googletag.cmd.push(function () {
-    // مصفوفة أسماء الوحدات الإعلانية
-    const adSlots = [
-        '/23294477490/uptodown.com/uptodown.com_rewarded1',
-        '/23294477490/uptodown.com/uptodown.com_rewarded2',
-        '/23294477490/uptodown.com/uptodown.com_rewarded3',
-        '/23294477490/uptodown.com/uptodown.com_rewarded4'
-    ];
+        // عرض الإعلان الثاني كل 20 ثانية
+        setInterval(() => {
+            googletag.cmd.push(() => {
+                rewardedSlot2 = googletag.defineOutOfPageSlot(
+                    "/22904833613/newreward",
+                    googletag.enums.OutOfPageFormat.REWARDED
+                );
 
-    let index = 0;
+                if (rewardedSlot2) {
+                    rewardedSlot2.addService(googletag.pubads());
 
-    function showNextAd() {
-        if (index < adSlots.length) {
-            showRewardedAd(adSlots[index], () => {
-                index++;
-                // الانتظار 10 ثواني قبل عرض الإعلان التالي
-                setTimeout(showNextAd, 10000);
+                    googletag.pubads().addEventListener("rewardedSlotReady", (event) => {
+                        if (event.slot === rewardedSlot2) {
+                            event.makeRewardedVisible();
+                        }
+                    });
+
+                    googletag.enableServices();
+                    googletag.display(rewardedSlot2);
+                } else {
+                    console.log("لا يوجد إعلان مكافأة للإعلان الثاني");
+                }
             });
-        }
-    }
-
-    // البدء بعرض الإعلان الأول
-    showNextAd();
-});
+        }, 20000); // تأخير 20 ثانية بين كل عرض
+    })(window);
 </script>
 
 </body>
 </html>
+
 
 
 
