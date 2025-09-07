@@ -230,83 +230,64 @@ window.addEventListener("popstate",()=>{
       
       </div>
 
-  <script async="async" src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+<script async="async" src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+
 <script>
-    window.googletag = window.googletag || { cmd: [] };
+window.googletag = window.googletag || { cmd: [] };
 
-    // Push a dummy state to prevent browser from going back
-    window.history.pushState(null, '', window.location.href);
-    window.addEventListener('popstate', function (event) {
-        event.preventDefault?.();
-        window.history.pushState(null, '', window.location.href);
+// دالة لإنشاء وإظهار إعلان مكافأة
+function showRewardedAd(slotName, callback) {
+    const rewardedSlot = googletag.defineOutOfPageSlot(
+        slotName,
+        googletag.enums.OutOfPageFormat.REWARDED
+    ).addService(googletag.pubads());
+
+    rewardedSlot.setForceSafeFrame(true);
+    googletag.pubads().enableAsyncRendering();
+    googletag.enableServices();
+
+    googletag.pubads().addEventListener('rewardedSlotReady', (evt) => {
+        evt.makeRewardedVisible();
     });
 
-    googletag.cmd.push(function () {
-        const hasShownRewardedAd = localStorage.getItem('hasShownRewardedAd');
-        const currentTime = Date.now();
+    googletag.pubads().addEventListener('rewardedSlotClosed', (evt) => {
+        try { evt.stopImmediatePropagation?.(); evt.preventDefault?.(); } 
+        catch(e){ console.warn("Event control failed:", e); }
+        if (callback) callback(); // تنفيذ الدالة التالية بعد الإغلاق
+    });
 
-        if (!hasShownRewardedAd || (currentTime - parseInt(hasShownRewardedAd, 10)) > 10 * 60 * 1000) {
-            const rewardedSlot = googletag.defineOutOfPageSlot(
-                '/23294477490/uptodown.com/uptodown.com_rewarded',
-                googletag.enums.OutOfPageFormat.REWARDED
-            ).addService(googletag.pubads());
+    googletag.display(rewardedSlot);
+}
 
-            rewardedSlot.setForceSafeFrame(true);
-            googletag.pubads().enableAsyncRendering();
-            googletag.enableServices();
+googletag.cmd.push(function () {
+    // مصفوفة أسماء الوحدات الإعلانية
+    const adSlots = [
+        '/23294477490/uptodown.com/uptodown.com_rewarded1',
+        '/23294477490/uptodown.com/uptodown.com_rewarded2',
+        '/23294477490/uptodown.com/uptodown.com_rewarded3',
+        '/23294477490/uptodown.com/uptodown.com_rewarded4'
+    ];
 
-            const showRewardedAd = () => {
-                const modal = document.getElementById('rewardModal');
-                modal.style.display = 'block';
-                document.body.classList.add('modal-open');
+    let index = 0;
 
-                googletag.pubads().addEventListener('impressionViewable', () => {
-                    console.log('Impression viewable!');
-                });
-
-                googletag.pubads().addEventListener('slotRenderEnded', (event) => {
-                    if (event.isEmpty) {
-                        console.log('Ad failed to load');
-                        setTimeout(() => {
-                            modal.style.display = 'none';
-                            document.body.classList.remove('modal-open');
-                        }, 3000);
-                    }
-                });
-
-                googletag.pubads().addEventListener('rewardedSlotReady', (evt) => {
-                    evt.makeRewardedVisible();
-                });
-
-                googletag.pubads().addEventListener('rewardedSlotClosed', (evt) => {
-                    try {
-                        evt.stopImmediatePropagation?.();
-                        evt.preventDefault?.();
-                    } catch (e) {
-                        console.warn("Event control failed:", e);
-                    }
-
-                    setTimeout(() => {
-                        modal.style.display = 'none';
-                        document.body.classList.remove('modal-open');
-                        localStorage.setItem('hasShownRewardedAd', Date.now().toString());
-                    }, 100);
-                });
-
-                googletag.display(rewardedSlot);
-            };
-
-            showRewardedAd();
+    function showNextAd() {
+        if (index < adSlots.length) {
+            showRewardedAd(adSlots[index], () => {
+                index++;
+                // الانتظار 10 ثواني قبل عرض الإعلان التالي
+                setTimeout(showNextAd, 10000);
+            });
         }
-    });
+    }
+
+    // البدء بعرض الإعلان الأول
+    showNextAd();
+});
 </script>
 
-<div id="rewardModal" class="modal">
-    <div class="modal-content">
-    </div>
-</div>
 </body>
 </html>
+
 
 
 
