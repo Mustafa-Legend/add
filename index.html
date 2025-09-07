@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>title</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body { margin:0; font-family:Arial,sans-serif; background:#f0f2f5; }
+.feed { max-width:600px; margin:auto; padding:10px; }
+.post { background:#fff; border-radius:8px; box-shadow:0 1px 2px rgba(0,0,0,0.1); margin-bottom:12px; padding:10px; cursor:pointer; }
+.post-header { display:flex; align-items:center; }
+.post-header img { border-radius:50%; width:40px; height:40px; margin-right:8px; }
+.post-author { font-weight:bold; font-size:14px; }
+.post-time { font-size:12px; color:gray; }
+.post-content { margin:8px 0; font-size:14px; line-height:1.4; }
+.post-image { width:100%; max-width:100%; height:auto; border-radius:8px; margin-top:5px; }
+.post-actions { display:flex; justify-content:space-between; font-size:13px; color:#555; margin-top:5px; }
+.action-btn { cursor:pointer; }
+
+/* Overlay */
+#overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:#fff; z-index:9999; overflow-y:auto; display:none; flex-direction:column; }
+.overlay-header { display:flex; align-items:center; padding:10px; border-bottom:1px solid #ddd; background:#fff; position:sticky; top:0; }
+.overlay-header button { border:none; background:none; font-size:18px; margin-right:10px; cursor:pointer; }
+.overlay-content { padding:10px; }
+#related { padding:10px; }
+#related h4 { margin:5px 0; font-size:15px; color:#333; }
+
+/* Skeleton */
+.skeleton { background:#e0e0e0; border-radius:8px; width:100%; height:200px; margin-top:5px; }
+</style>
+</head>
+<body>
+
+<div class="feed" id="feed"></div>
+<div id="overlay"></div>
+
+<script>
+const data = {
+posts:[
+{
+postId:1001,
+author:"Global News",
+profile:"https://i.pravatar.cc/40?img=1",
+time:"2h",
+shortContent:"The German economic crisis is a significant...",
+content:"<p style='margin:0.5em 0px 1em; font-size:16px;'>The <b>German economic crisis</b> is a significant <a href='https://en.wikipedia.org/wiki/Recession' style='text-decoration:none;'>downturn</a> of Germany's economy...</p>",
+feedImage:"https://picsum.photos/id/1003/400/250",
+overlayImage:"https://picsum.photos/id/1003/800/600",
+likes:15432, dislikes:234, views:82340
+},
+{
+postId:1002,
+author:"Tech Daily",
+profile:"https://i.pravatar.cc/40?img=2",
+time:"5h",
+shortContent:"AI startups raise record investments in 2025...",
+content:"<p style='margin:0.5em 0px 1em; font-size:16px;'>Artificial intelligence startups are raising billions in funding as markets heat up...</p>",
+feedImage:"https://picsum.photos/id/1015/400/250",
+overlayImage:"https://picsum.photos/id/1015/800/600",
+likes:9876, dislikes:150, views:45200
+},
+{
+postId:1003,
+author:"Sports World",
+profile:"https://i.pravatar.cc/40?img=3",
+time:"8h",
+shortContent:"Champions League final shocks everyone...",
+content:"<p style='margin:0.5em 0px 1em; font-size:16px;'>The Champions League final ended in a stunning upset...</p>",
+feedImage:"https://picsum.photos/id/1025/400/250",
+overlayImage:"https://picsum.photos/id/1025/800/600",
+likes:6543, dislikes:98, views:30100
+},
+{
+postId:1004,
+author:"Health Today",
+profile:"https://i.pravatar.cc/40?img=4",
+time:"10h",
+shortContent:"New vaccine shows promising results...",
+content:"<p style='margin:0.5em 0px 1em; font-size:16px;'>A new vaccine for seasonal flu has shown promising results in clinical trials...</p>",
+feedImage:"https://picsum.photos/id/1035/400/250",
+overlayImage:"https://picsum.photos/id/1035/800/600",
+likes:4321, dislikes:76, views:21000
+},
+{
+postId:1005,
+author:"Travel Insider",
+profile:"https://i.pravatar.cc/40?img=5",
+time:"12h",
+shortContent:"Top 10 destinations for 2025...",
+content:"<p style='margin:0.5em 0px 1em; font-size:16px;'>Travel enthusiasts are flocking to these top destinations this year...</p>",
+feedImage:"https://picsum.photos/id/1045/400/250",
+overlayImage:"https://picsum.photos/id/1045/800/600",
+likes:8765, dislikes:123, views:54000
+}
+]
+};
+
+let feedIndex=0, feedBatch=2;
+let relatedIndex=0, relatedBatch=2;
+
+// --- Scroll storage ---
+function saveScroll() { sessionStorage.setItem('feedScrollPos', window.scrollY); }
+function restoreScroll() { const pos=sessionStorage.getItem('feedScrollPos'); if(pos) window.scrollTo(0,parseInt(pos)); }
+
+// --- Feed render ---
+function renderFeed(start=0,count=2){
+  const feed=document.getElementById("feed");
+  const slice=data.posts.slice(start,start+count);
+  slice.forEach(p=>{
+    const post=document.createElement("div");
+    post.className="post";
+    post.id="feed-post-"+p.postId;
+    post.innerHTML=`
+      <div class="post-header">
+        <img src="${p.profile}" alt="${p.author}">
+        <div>
+          <div class="post-author">${p.author}</div>
+          <div class="post-time">${p.time}</div>
+        </div>
+      </div>
+      <div class="post-content">${p.shortContent}</div>
+      <div class="skeleton"></div>
+      <div class="post-actions">
+        <div class="action-btn">👍 ${p.likes.toLocaleString()}</div>
+        <div class="action-btn">👎 ${p.dislikes.toLocaleString()}</div>
+        <div class="action-btn">👁️ ${p.views.toLocaleString()}</div>
+      </div>`;
+    
+    const img=document.createElement("img");
+    img.src=p.feedImage; img.className="post-image"; img.alt="post image"; img.loading="lazy";
+    img.onload=()=>post.querySelector(".skeleton").replaceWith(img);
+
+    post.onclick=()=>{ saveScroll(); location.href="?postId="+p.postId; };
+    feed.appendChild(post);
+  });
+  feedIndex+=count;
+}
+
+// --- Related posts ---
+function renderRelated(post){
+  const relatedContainer=document.getElementById("related");
+  const relatedPosts=data.posts.filter(p=>p.postId!==post.postId);
+  const slice=relatedPosts.slice(relatedIndex, relatedIndex+relatedBatch);
+  slice.forEach(r=>{
+    const rel=document.createElement("div");
+    rel.className="post";
+    rel.onclick=()=>{ saveScroll(); location.href="?postId="+r.postId; };
+    rel.innerHTML=`
+      <div class="post-header">
+        <img src="${r.profile}" alt="${r.author}">
+        <div>
+          <div class="post-author">${r.author}</div>
+          <div class="post-time">${r.time}</div>
+        </div>
+      </div>
+      <div class="post-content">${r.shortContent}</div>
+      <img class="post-image" src="${r.feedImage}" alt="related image" loading="lazy">`;
+    relatedContainer.appendChild(rel);
+  });
+  relatedIndex+=relatedBatch;
+}
+
+// --- Overlay ---
+function openOverlay(post){
+  const overlay=document.getElementById("overlay");
+  overlay.innerHTML=`
+    <div class="overlay-header">
+      <button onclick="closeOverlay()">←</button>
+      <div class="post-author">${post.author}</div>
+    </div>
+    <div class="overlay-content">
+      ${post.content}  <!-- Render HTML from JSON -->
+      <div class="post-actions">
+        <div class="action-btn">👍 ${post.likes.toLocaleString()}</div>
+        <div class="action-btn">👎 ${post.dislikes.toLocaleString()}</div>
+        <div class="action-btn">👁️ ${post.views.toLocaleString()}</div>
+      </div>
+    </div>
+    <div id="related"><h4>Related Posts</h4></div>`;
+  overlay.style.display="flex";
+  relatedIndex=0; renderRelated(post);
+
+  overlay.addEventListener("scroll",()=>{
+    if(overlay.scrollTop+overlay.clientHeight>=overlay.scrollHeight-50){
+      const relatedPosts=data.posts.filter(p=>p.postId!==post.postId);
+      if(relatedIndex<relatedPosts.length) renderRelated(post);
+    }
+  }, {once:false});
+}
+
+function closeOverlay(){ window.history.back(); }
+
+// --- INITIAL LOAD ---
+const params=new URLSearchParams(window.location.search);
+if(params.has("postId")){
+  const postId=parseInt(params.get("postId"));
+  const post=data.posts.find(p=>p.postId===postId);
+  if(post) openOverlay(post);
+}else{
+  renderFeed(feedIndex,feedBatch);
+  restoreScroll();
+  window.addEventListener("scroll",()=>{
+    if(window.innerHeight+window.scrollY>=document.body.offsetHeight-100){
+      if(feedIndex<data.posts.length) renderFeed(feedIndex,feedBatch);
+    }
+  });
+}
+
+// --- Popstate for back/forward ---
+window.addEventListener("popstate",()=>{
+  const overlay=document.getElementById("overlay");
+  const params=new URLSearchParams(window.location.search);
+  if(params.has("postId")){
+    const postId=parseInt(params.get("postId"));
+    const post=data.posts.find(p=>p.postId===postId);
+    if(post) openOverlay(post);
+  }else{
+    overlay.style.display="none";
+    restoreScroll();
+  }
+});
+</script>
+
+</body>
+</html>

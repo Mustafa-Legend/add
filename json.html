@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini CMS with SEO & Headings</title>
+<style>
+body { font-family: Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; }
+h1 { text-align: center; }
+.container { max-width: 900px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+label { display: block; margin-top: 15px; font-weight: bold; }
+input, textarea { width: 100%; padding: 10px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc; }
+textarea { resize: vertical; }
+button { margin-top: 10px; padding: 8px 15px; border: none; border-radius: 5px; background: #007bff; color: white; cursor: pointer; }
+button:hover { background: #0056b3; }
+.toolbar { margin-top: 10px; }
+.editor { border: 1px solid #ccc; border-radius: 5px; min-height: 150px; padding: 10px; margin-top: 5px; background: #fff; }
+.sourceView { font-family: monospace; white-space: pre-wrap; }
+pre { background: #f8f8f8; padding: 10px; border-radius: 5px; overflow-x: auto; }
+.seo-preview { margin-top: 15px; border: 1px solid #ddd; border-radius: 5px; padding: 15px; background: #fafafa; }
+.seo-title { font-size: 18px; color: #1a0dab; margin-bottom: 4px; }
+.seo-url { font-size: 14px; color: #006621; margin-bottom: 4px; }
+.seo-description { font-size: 13px; color: #545454; }
+.seo-stats { margin-top: 15px; padding: 10px; border: 1px solid #eee; border-radius: 8px; background: #fafafa; }
+.stat { margin: 5px 0; font-size: 14px; }
+.good { color: green; font-weight: bold; }
+.ok { color: orange; font-weight: bold; }
+.bad { color: red; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<div class="container">
+<h1>Mini CMS with SEO & Headings</h1>
+
+<!-- SEO Section -->
+<h2>SEO Settings</h2>
+<label>SEO Title:</label>
+<input type="text" id="seoTitle" placeholder="Enter SEO Title" oninput="updateSEO()">
+<div id="titleCounter" class="stat"></div>
+
+<label>Meta Description:</label>
+<textarea id="seoDescription" rows="2" placeholder="Enter meta description" oninput="updateSEO()"></textarea>
+<div id="descCounter" class="stat"></div>
+
+<label>Focus Keyword:</label>
+<input type="text" id="focusKeyword" placeholder="Enter main keyword for SEO" oninput="updateSEO()">
+
+<label>Keywords (comma separated):</label>
+<input type="text" id="seoKeywords" placeholder="keyword1, keyword2, keyword3">
+
+<!-- SEO Live Preview -->
+<div class="seo-preview">
+  <div class="seo-title" id="previewTitle">SEO Title Preview</div>
+  <div class="seo-url">www.example.com › post</div>
+  <div class="seo-description" id="previewDescription">Meta description preview goes here...</div>
+</div>
+
+<!-- SEO Stats -->
+<div class="seo-stats" id="seoStats"></div>
+
+<!-- Post Info -->
+<h2>Post Info</h2>
+<label>Post ID:</label>
+<input type="number" id="postId" placeholder="1001">
+
+<label>Author:</label>
+<input type="text" id="author" placeholder="Global News">
+
+<label>Profile URL:</label>
+<input type="text" id="profile" placeholder="https://i.pravatar.cc/40?img=1">
+
+<label>Time:</label>
+<input type="text" id="time" placeholder="2h">
+
+<label>Short Content:</label>
+<textarea id="shortContent" rows="2" placeholder="Short preview text..."></textarea>
+
+<!-- CMS Editor -->
+<h2>Content Editor</h2>
+<div class="toolbar">
+<button type="button" onclick="insertHeading('h1')">H1</button>
+<button type="button" onclick="insertHeading('h2')">H2</button>
+<button type="button" onclick="insertHeading('h3')">H3</button>
+<button type="button" onclick="insertImage()">Insert Image</button>
+<button type="button" onclick="insertJS()">Insert JS Code</button>
+<button type="button" onclick="toggleSource()">Toggle HTML Source</button>
+</div>
+<div id="content" class="editor" contenteditable="true" oninput="updateSEO()"></div>
+
+<label>Feed Image URL:</label>
+<input type="text" id="feedImage" placeholder="https://picsum.photos/id/1003/400/250">
+
+<label>Overlay Image URL:</label>
+<input type="text" id="overlayImage" placeholder="https://picsum.photos/id/1003/800/600">
+
+<label>Likes:</label>
+<input type="number" id="likes" placeholder="15432">
+
+<label>Dislikes:</label>
+<input type="number" id="dislikes" placeholder="234">
+
+<label>Views:</label>
+<input type="number" id="views" placeholder="82340">
+
+<button onclick="generateJSON()">Generate JSON</button>
+
+<h2>Generated JSON</h2>
+<pre id="output"></pre>
+</div>
+
+<script>
+let isSourceMode = false;
+
+function insertHeading(tag) {
+  const text = prompt(`Enter ${tag.toUpperCase()} text:`);
+  if(text) {
+    insertHTMLAtCursor(document.getElementById("content"), `<${tag}>${text}</${tag}>`);
+    updateSEO();
+  }
+}
+
+function insertImage() {
+  const url = prompt("Enter Image URL:");
+  if (url) {
+    insertHTMLAtCursor(document.getElementById("content"), `<img src="${url}" style="max-width:100%;height:auto;border-radius:8px;">`);
+    updateSEO();
+  }
+}
+
+function insertJS() {
+  const code = prompt("Enter JS code:");
+  if (code) {
+    const escaped = code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    insertHTMLAtCursor(document.getElementById("content"), `<pre><code class="language-js">${escaped}</code></pre>`);
+    updateSEO();
+  }
+}
+
+function toggleSource() {
+  const editor = document.getElementById("content");
+  if (!isSourceMode) {
+    editor.textContent = editor.innerHTML; 
+    editor.classList.add("sourceView");
+    isSourceMode = true;
+  } else {
+    editor.innerHTML = editor.textContent; 
+    editor.classList.remove("sourceView");
+    isSourceMode = false;
+  }
+}
+
+function insertHTMLAtCursor(element, html) {
+  element.focus();
+  let sel, range;
+  if (window.getSelection) {
+    sel = window.getSelection();
+    if (sel.getRangeAt && sel.rangeCount) {
+      range = sel.getRangeAt(0);
+      range.deleteContents();
+      const el = document.createElement("div");
+      el.innerHTML = html;
+      const frag = document.createDocumentFragment();
+      let node, lastNode;
+      while ((node = el.firstChild)) { lastNode = frag.appendChild(node); }
+      range.insertNode(frag);
+      if (lastNode) {
+        range = range.cloneRange();
+        range.setStartAfter(lastNode);
+        range.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+    }
+  }
+}
+
+function generateJSON() {
+  const data = {
+    seo: {
+      title: document.getElementById('seoTitle').value,
+      description: document.getElementById('seoDescription').value,
+      keywords: document.getElementById('seoKeywords').value.split(',').map(k => k.trim()),
+      focusKeyword: document.getElementById('focusKeyword').value
+    },
+    postId: Number(document.getElementById('postId').value),
+    author: document.getElementById('author').value,
+    profile: document.getElementById('profile').value,
+    time: document.getElementById('time').value,
+    shortContent: document.getElementById('shortContent').value,
+    content: document.getElementById('content').innerHTML,
+    feedImage: document.getElementById('feedImage').value,
+    overlayImage: document.getElementById('overlayImage').value,
+    likes: Number(document.getElementById('likes').value),
+    dislikes: Number(document.getElementById('dislikes').value),
+    views: Number(document.getElementById('views').value)
+  };
+  document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+}
+
+/* SEO Analyzer */
+function updateSEO() {
+  const title = document.getElementById('seoTitle').value || "SEO Title Preview";
+  const desc = document.getElementById('seoDescription').value || "Meta description preview goes here...";
+  const content = document.getElementById('content').innerText || "";
+  const keyword = document.getElementById('focusKeyword').value.trim();
+
+  document.getElementById('previewTitle').textContent = title;
+  document.getElementById('previewDescription').textContent = desc;
+
+  // Counters
+  const titleLength = title.length;
+  const titleCounter = document.getElementById('titleCounter');
+  titleCounter.textContent = `Title length: ${titleLength} chars`;
+  titleCounter.className = "stat " + (titleLength>=50 && titleLength<=60?'good':(titleLength>=30 && titleLength<=70?'ok':'bad'));
+
+  const descLength = desc.length;
+  const descCounter = document.getElementById('descCounter');
+  descCounter.textContent = `Description length: ${descLength} chars`;
+  descCounter.className = "stat " + (descLength>=120 && descLength<=160?'good':(descLength>=80 && descLength<=200?'ok':'bad'));
+
+  const words = content.split(/\s+/).filter(w=>w.length>0).length;
+
+  // Readability
+  const sentenceCount = content.split(/[.!?]/).filter(s=>s.trim().length>0).length||1;
+  const syllables = (content.match(/[aeiouy]{1,2}/gi)||[]).length;
+  const flesch = 206.835 - (1.015*(words/sentenceCount)) - (84.6*(syllables/words||1));
+  const readability = Math.round(flesch);
+
+  // Keyword density
+  let density = 0;
+  if(keyword){
+    const matches = content.match(new RegExp("\\b"+keyword+"\\b","gi"));
+    density = ((matches?matches.length:0)/words*100).toFixed(2);
+  }
+
+  const statsDiv = document.getElementById("seoStats");
+  statsDiv.innerHTML = `
+    <div class="stat ${words>300?'good':(words>150?'ok':'bad')}">Word Count: ${words}</div>
+    <div class="stat ${readability>=60?'good':(readability>=40?'ok':'bad')}">Readability Score: ${readability}</div>
+    <div class="stat ${density>=1 && density<=2.5?'good':(density>0?'ok':'bad')}">Keyword Density: ${density}%</div>
+  `;
+}
+</script>
+
+</body>
+</html>
