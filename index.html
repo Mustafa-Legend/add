@@ -254,11 +254,11 @@ window.addEventListener("popstate",()=>{
   window.googletag = window.googletag || { cmd: [] };
 
   googletag.cmd.push(() => {
+    // ✅ ثلاث وحدات إعلانية فقط
     const adUnits = [
-      "/23294477490/uptodown.com/uptodown.com_reward1",
-      "/23294477490/uptodown.com/uptodown.com_reward2",
-      "/23294477490/uptodown.com/uptodown.com_reward3",
-      "/23294477490/uptodown.com/uptodown.com_reward4"
+      "/22904833613/reward1",
+      "/22904833613/reward2",
+      "/22904833613/reward3"
     ];
 
     let currentIndex = 0;
@@ -315,21 +315,29 @@ window.addEventListener("popstate",()=>{
       }, 1000);
     }
 
-    function showAdsLoop() {
-      const unitPath = adUnits[currentIndex];
-      showRewardedAd(unitPath, () => {
-        currentIndex = (currentIndex + 1) % adUnits.length;
-        startCountdown(10, showAdsLoop);
-      });
+    function showAdsSequence() {
+      if (currentIndex < adUnits.length) {
+        const unitPath = adUnits[currentIndex];
+        showRewardedAd(unitPath, () => {
+          currentIndex++;
+          if (currentIndex < adUnits.length) {
+            startCountdown(10, showAdsSequence);
+          } else {
+            console.log("✅ انتهت الإعلانات الثلاثة");
+          }
+        });
+      }
     }
 
-    // أول إعلان يبدأ مباشرة
-    showAdsLoop();
+    // ✅ أول إعلان يبدأ بعد 10 ثواني
+    startCountdown(3, showAdsSequence);
   });
 </script>
 
+
 </body>
 </html>
+
 
 
 
