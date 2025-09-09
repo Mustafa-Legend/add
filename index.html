@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-  <script async='async' crossorigin='anonymous' data-page-url='https://uptodown.com' src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0337387298854186'></script>
+  <script async='async' crossorigin='anonymous' data-page-url='https://www.manoramaonline.com' src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1440001426761627'></script>
 
 <title>title</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -232,111 +232,46 @@ window.addEventListener("popstate",()=>{
 
 <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
 
-<style>
-  #ad-timer {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(0,0,0,0.8);
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 8px;
-    font-family: sans-serif;
-    font-size: 16px;
-    z-index: 9999;
-    display: none;
-  }
-</style>
-
-<div id="ad-timer">الإعلان القادم خلال 10 ثانية</div>
-
+<div class="advtBlock__title">ADVERTISEMENT</div>
+<div class="advtBlock__content">
+<div class="mm-banner970-90-ad">
+<div id="slb1-ad">
 <script>
-  window.googletag = window.googletag || { cmd: [] };
-
-  googletag.cmd.push(() => {
-    // ✅ ثلاث وحدات إعلانية فقط
-    const adUnits = [
-      "/22904833613/reward1",
-      "/22904833613/reward2",
-      "/22904833613/reward3"
-    ];
-
-    let currentIndex = 0;
-    const timerBox = document.getElementById("ad-timer");
-    let countdownInterval;
-
-    function showRewardedAd(unitPath, callback) {
-      const rewardedSlot = googletag.defineOutOfPageSlot(
-        unitPath,
-        googletag.enums.OutOfPageFormat.REWARDED
-      );
-
-      if (!rewardedSlot) {
-        console.log("❌ لم يتم إنشاء الإعلان:", unitPath);
-        if (callback) callback();
-        return;
-      }
-
-      rewardedSlot.addService(googletag.pubads());
-
-      googletag.pubads().addEventListener("rewardedSlotReady", (event) => {
-        if (event.slot === rewardedSlot) {
-          console.log("✅ الإعلان جاهز:", unitPath);
-          timerBox.style.display = "none"; // إخفاء العداد عند ظهور الإعلان
-          event.makeRewardedVisible();
-        }
-      });
-
-      googletag.pubads().addEventListener("rewardedSlotClosed", () => {
-        console.log("ℹ️ الإعلان أغلق:", unitPath);
-        googletag.destroySlots([rewardedSlot]);
-        if (callback) callback();
-      });
-
-      googletag.enableServices();
-      googletag.display(rewardedSlot);
-    }
-
-    function startCountdown(seconds, onFinish) {
-      let remaining = seconds;
-      timerBox.style.display = "block";
-      timerBox.textContent = `الإعلان القادم خلال ${remaining} ثانية`;
-
-      clearInterval(countdownInterval);
-      countdownInterval = setInterval(() => {
-        remaining--;
-        timerBox.textContent = `الإعلان القادم خلال ${remaining} ثانية`;
-
-        if (remaining <= 0) {
-          clearInterval(countdownInterval);
-          timerBox.style.display = "none";
-          if (onFinish) onFinish();
-        }
-      }, 1000);
-    }
-
-    function showAdsSequence() {
-      if (currentIndex < adUnits.length) {
-        const unitPath = adUnits[currentIndex];
-        showRewardedAd(unitPath, () => {
-          currentIndex++;
-          if (currentIndex < adUnits.length) {
-            startCountdown(10, showAdsSequence);
-          } else {
-            console.log("✅ انتهت الإعلانات الثلاثة");
-          }
-        });
-      }
-    }
-
-    // ✅ أول إعلان يبدأ بعد 10 ثواني
-    startCountdown(3, showAdsSequence);
-  });
-</script>
+                googletag.cmd.push(function () {
+                    googletag.display("slb1-ad");
+                    var anchorSlot = googletag.defineOutOfPageSlot("/123148010/manoramaonline/anchor", googletag.enums.OutOfPageFormat.BOTTOM_ANCHOR);
+                    if (anchorSlot) {
+                        anchorSlot.setTargeting("position", "anchor").addService(googletag.pubads());
+                        googletag.display(anchorSlot);
+                    }
+                });
+            </script>
+</div>
+<!-- /123148010/manoramaonline/InArticleVideoAd-->
+<script>
+            document.addEventListener("DOMContentLoaded", (event) => {
+                if (!window.location.host.includes("author.manoramaonline.com")) {
+                    googletag.cmd.push(function () {
+                        googletag.display("inarticle");
+                    });
+                }
+            });
+        </script>
+</div>
+<!-- /123148010/manoramaonline/outofpage -->
+<div id='outofpage'>
+<script>
+            document.addEventListener("DOMContentLoaded", (event) => {
+                triggerShoskele();
+            })
+        </script>
+</div>
+</div>
 
 
 </body>
 </html>
+
 
 
 
