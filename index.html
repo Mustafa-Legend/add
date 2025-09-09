@@ -249,8 +249,117 @@ window.addEventListener("popstate",()=>{
 </center>
 
 
+
+
+  <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+
+<style>
+  #ad-timer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(0,0,0,0.8);
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-family: sans-serif;
+    font-size: 16px;
+    z-index: 9999;
+    display: none;
+  }
+</style>
+
+<div id="ad-timer">الإعلان القادم خلال 10 ثانية</div>
+
+<script>
+  window.googletag = window.googletag || { cmd: [] };
+
+  googletag.cmd.push(() => {
+    // ✅ خمس وحدات إعلانية
+    const adUnits = [
+      "/4619653668/reward1",
+      "/4619653668/reward2",
+      "/4619653668/reward3",
+      "/4619653668/reward4",
+      "/4619653668/reward5"
+    ];
+
+    let currentIndex = 0;
+    const timerBox = document.getElementById("ad-timer");
+    let countdownInterval;
+
+    function showRewardedAd(unitPath, callback) {
+      const rewardedSlot = googletag.defineOutOfPageSlot(
+        unitPath,
+        googletag.enums.OutOfPageFormat.REWARDED
+      );
+
+      if (!rewardedSlot) {
+        console.log("❌ لم يتم إنشاء الإعلان:", unitPath);
+        if (callback) callback();
+        return;
+      }
+
+      rewardedSlot.addService(googletag.pubads());
+
+      googletag.pubads().addEventListener("rewardedSlotReady", (event) => {
+        if (event.slot === rewardedSlot) {
+          console.log("✅ الإعلان جاهز:", unitPath);
+          timerBox.style.display = "none"; 
+          event.makeRewardedVisible();
+        }
+      });
+
+      googletag.pubads().addEventListener("rewardedSlotClosed", () => {
+        console.log("ℹ️ الإعلان أغلق:", unitPath);
+        googletag.destroySlots([rewardedSlot]);
+        if (callback) callback();
+      });
+
+      googletag.enableServices();
+      googletag.display(rewardedSlot);
+    }
+
+    function startCountdown(seconds, onFinish) {
+      let remaining = seconds;
+      timerBox.style.display = "block";
+      timerBox.textContent = `الإعلان القادم خلال ${remaining} ثانية`;
+
+      clearInterval(countdownInterval);
+      countdownInterval = setInterval(() => {
+        remaining--;
+        timerBox.textContent = `الإعلان القادم خلال ${remaining} ثانية`;
+
+        if (remaining <= 0) {
+          clearInterval(countdownInterval);
+          timerBox.style.display = "none";
+          if (onFinish) onFinish();
+        }
+      }, 1000);
+    }
+
+    function showAdsSequence() {
+      if (currentIndex < adUnits.length) {
+        const unitPath = adUnits[currentIndex];
+        showRewardedAd(unitPath, () => {
+          currentIndex++;
+          if (currentIndex < adUnits.length) {
+            startCountdown(10, showAdsSequence);
+          } else {
+            console.log("✅ انتهت الإعلانات الخمسة");
+          }
+        });
+      }
+    }
+
+    // ✅ أول إعلان يبدأ بعد 10 ثواني
+    startCountdown(10, showAdsSequence);
+  });
+</script>
+
 </body>
 </html>
+
 
 
 
