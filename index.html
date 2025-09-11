@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-  <script async='async' crossorigin='anonymous' data-page-url='https://buzzday.info' src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5037592302761804'></script>
-
+  <script async='async' crossorigin='anonymous' data-page-url='https://barcavoice.com' src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5037592302761804'></script>
+<script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" crossorigin="anonymous"></script>
 <title>title</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
@@ -33,6 +33,123 @@ body { margin:0; font-family:Arial,sans-serif; background:#f0f2f5; }
 </head>
 <body>
 
+<!-- rewarded / put after <body> 
+<!-- <style>
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 300px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    #rewardModal .modal-content {
+        margin: auto;
+        padding: 25px;
+        background-color: transparent !important;
+        text-align: center;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    @media all and (orientation: landscape) {
+        /* Modal Content */
+        .modal-content {
+            margin: auto;
+            padding: 25px;
+            text-align: center;
+            position: fixed;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    .btn {
+        padding: .5rem;
+        background: #2990EA;
+        border: none;
+        border-radius: 4px;
+        margin: 4px;
+    }
+</style>
+
+<script>
+    // هذه الدالة ستحتوي على كل منطق إعلانات المكافأة
+    function loadRewardedAdAfterDelay() {
+        googletag = window.googletag || { cmd: [] };
+        googletag.cmd.push(() => {
+            const hasShownRewardedAd = localStorage.getItem('hasShownRewardedAd');
+            const currentTime = Date.now();
+
+            if (!hasShownRewardedAd || (currentTime - parseInt(hasShownRewardedAd, 10)) > 1 * 60 * 1000) {
+                const rewardedSlot = googletag.defineOutOfPageSlot('/22730684336/barcavoice-rewarded',
+                    googletag.enums.OutOfPageFormat.REWARDED).addService(googletag.pubads());
+                rewardedSlot.setForceSafeFrame(true);
+                googletag.pubads().enableAsyncRendering();
+                googletag.enableServices();
+
+                const showRewardedAd = () => {
+                    const trigger = document.getElementById('rewardModal');
+
+                    googletag.pubads().addEventListener('impressionViewable', () => {
+                        //trigger.style.display = 'block';
+                        console.log('rewarded===>', 'Impression viewable!');
+                    });
+                    googletag.pubads().addEventListener('slotRenderEnded', function (event) {
+                        if (event.slot.getAdUnitPath() == '/22730684336/barcavoice-rewarded') {
+                            if (!event.isEmpty) {
+                                console.log('rewarded===>', 'Ad is here 😄😄😄😄');
+                                trigger.style.display = "block";
+                            } else {
+                                console.log('rewarded===>', 'Ad is empty or failed to load');
+                                trigger.style.display = "none";
+                            };
+                        };
+                    });
+                    googletag.pubads().addEventListener('rewardedSlotReady', evt => {
+                        console.log('rewarded===>', 'Slot Ready!');
+                        evt.makeRewardedVisible();
+                    });
+
+                    googletag.pubads().addEventListener('rewardedSlotClosed', evt => {
+                        console.log('rewarded===>', 'Slot Closed!');
+                        trigger.style.display = 'none';
+                        localStorage.setItem('hasShownRewardedAd', currentTime.toString());
+                    });
+
+                    googletag.display(rewardedSlot);
+                };
+
+                showRewardedAd();
+            }
+        });
+    }
+
+    // استخدم setTimeout لتشغيل الدالة loadRewardedAdAfterDelay بعد 10 ثوانٍ
+    window.onload = function() {
+        setTimeout(loadRewardedAdAfterDelay, 5000); // 10000 مللي ثانية = 10 ثوانٍ
+    };
+</script>
+
+<div id="rewardModal" class="modal" style="display: none;">
+    <div class="modal-content">
+    </div>
+</div> -->
+<!-- end rewarded -->
+
+
+  
 <div class="feed" id="feed"></div>
 <div id="overlay"></div>
 
@@ -251,114 +368,10 @@ window.addEventListener("popstate",()=>{
 
 
 
-  <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
-
-<style>
-  #ad-timer {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(0,0,0,0.8);
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 8px;
-    font-family: sans-serif;
-    font-size: 16px;
-    z-index: 9999;
-    display: none;
-  }
-</style>
-
-<div id="ad-timer">الإعلان القادم خلال 10 ثانية</div>
-
-<script>
-  window.googletag = window.googletag || { cmd: [] };
-
-  googletag.cmd.push(() => {
-    // ✅ خمس وحدات إعلانية
-    const adUnits = [
-      "/4619653668/reward1",
-      "/4619653668/reward2",
-      "/4619653668/reward3",
-      "/4619653668/reward4",
-      "/4619653668/reward5"
-    ];
-
-    let currentIndex = 0;
-    const timerBox = document.getElementById("ad-timer");
-    let countdownInterval;
-
-    function showRewardedAd(unitPath, callback) {
-      const rewardedSlot = googletag.defineOutOfPageSlot(
-        unitPath,
-        googletag.enums.OutOfPageFormat.REWARDED
-      );
-
-      if (!rewardedSlot) {
-        console.log("❌ لم يتم إنشاء الإعلان:", unitPath);
-        if (callback) callback();
-        return;
-      }
-
-      rewardedSlot.addService(googletag.pubads());
-
-      googletag.pubads().addEventListener("rewardedSlotReady", (event) => {
-        if (event.slot === rewardedSlot) {
-          console.log("✅ الإعلان جاهز:", unitPath);
-          timerBox.style.display = "none"; 
-          event.makeRewardedVisible();
-        }
-      });
-
-      googletag.pubads().addEventListener("rewardedSlotClosed", () => {
-        console.log("ℹ️ الإعلان أغلق:", unitPath);
-        googletag.destroySlots([rewardedSlot]);
-        if (callback) callback();
-      });
-
-      googletag.enableServices();
-      googletag.display(rewardedSlot);
-    }
-
-    function startCountdown(seconds, onFinish) {
-      let remaining = seconds;
-      timerBox.style.display = "block";
-      timerBox.textContent = `الإعلان القادم خلال ${remaining} ثانية`;
-
-      clearInterval(countdownInterval);
-      countdownInterval = setInterval(() => {
-        remaining--;
-        timerBox.textContent = `الإعلان القادم خلال ${remaining} ثانية`;
-
-        if (remaining <= 0) {
-          clearInterval(countdownInterval);
-          timerBox.style.display = "none";
-          if (onFinish) onFinish();
-        }
-      }, 1000);
-    }
-
-    function showAdsSequence() {
-      if (currentIndex < adUnits.length) {
-        const unitPath = adUnits[currentIndex];
-        showRewardedAd(unitPath, () => {
-          currentIndex++;
-          if (currentIndex < adUnits.length) {
-            startCountdown(10, showAdsSequence);
-          } else {
-            console.log("✅ انتهت الإعلانات الخمسة");
-          }
-        });
-      }
-    }
-
-    // ✅ أول إعلان يبدأ بعد 10 ثواني
-    startCountdown(10, showAdsSequence);
-  });
-</script>
 
 </body>
 </html>
+
 
 
 
