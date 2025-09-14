@@ -236,25 +236,57 @@ window.addEventListener("popstate",()=>{
       </div>
 
 
-
-
 <center>
 <div class="get-click">
-<script async='async' crossorigin='anonymous' data-page-url='https://buzzday.info' src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5037592302761804&pv=0"></script>
-<!-- eng.buzzday_inp_mb -->
+<!-- الإعلان -->
 <ins class="adsbygoogle"
      style="display:block"
      data-ad-client="ca-pub-5037592302761804"
      data-ad-slot="4619653668"
      data-ad-format="auto"
      data-full-width-responsive="true"></ins>
+
 <script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
+  // دالة لإنشاء سكربت AdSense مع pv=0
+  function loadAdsenseWithPvZero() {
+      // رابط السكربت الأصلي
+      let src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5037592302761804";
+
+      // إضافة pv=0
+      if(src.indexOf("?") === -1) {
+          src += "?pv=0";
+      } else {
+          src += "&pv=0";
+      }
+
+      // إنشاء عنصر السكربت ديناميكيًا
+      let script = document.createElement("script");
+      script.async = true;
+      script.crossOrigin = "anonymous";
+      script.src = src;
+
+      // إدراج السكربت في الصفحة
+      document.head.appendChild(script);
+
+      // بعد تحميل السكربت، دفع الإعلان
+      script.onload = function() {
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      };
+  }
+
+  // تحميل الإعلان
+  loadAdsenseWithPvZero();
 </script>
 </div>
 </center>
+
+
+
+
+    
 </body>
 </html>
+
 
 
 
