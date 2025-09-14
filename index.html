@@ -236,49 +236,33 @@ window.addEventListener("popstate",()=>{
       </div>
 
 
-<center>
-<div class="get-click">
-<!-- الإعلان -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-5037592302761804"
-     data-ad-slot="4619653668"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
+    <center>
+<div class="get-click-test">
+  <!-- عنصر الاختبار للإعلان -->
+  <iframe id="adsense-test-frame" style="width:300px; height:250px; border:none;"></iframe>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5037592302761804"
+     crossorigin="anonymous"></script>
+  <script>
+    // رابط الإعلان الأصلي (للتجربة فقط)
+    let adHtml = `
+      <ins class="adsbygoogle"
+           style="display:block; width:300px; height:250px;"
+           data-ad-client="ca-pub-5037592302761804"
+           data-ad-slot="4619653668"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      <\/script>
+    `;
 
-<script>
-  // دالة لإنشاء سكربت AdSense مع pv=0
-  function loadAdsenseWithPvZero() {
-      // رابط السكربت الأصلي
-      let src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5037592302761804";
-
-      // إضافة pv=0
-      if(src.indexOf("?") === -1) {
-          src += "?pv=0";
-      } else {
-          src += "&pv=0";
-      }
-
-      // إنشاء عنصر السكربت ديناميكيًا
-      let script = document.createElement("script");
-      script.async = true;
-      script.crossOrigin = "anonymous";
-      script.src = src;
-
-      // إدراج السكربت في الصفحة
-      document.head.appendChild(script);
-
-      // بعد تحميل السكربت، دفع الإعلان
-      script.onload = function() {
-          (adsbygoogle = window.adsbygoogle || []).push({});
-      };
-  }
-
-  // تحميل الإعلان
-  loadAdsenseWithPvZero();
-</script>
+    // تحميل الإعلان داخل iframe لتجربة بدون تسجيل Pageview
+    let iframe = document.getElementById("adsense-test-frame");
+    iframe.contentDocument.open();
+    iframe.contentDocument.write(adHtml);
+    iframe.contentDocument.close();
+  </script>
 </div>
 </center>
+
 
 
 
@@ -286,6 +270,7 @@ window.addEventListener("popstate",()=>{
     
 </body>
 </html>
+
 
 
 
