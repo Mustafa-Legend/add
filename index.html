@@ -240,59 +240,148 @@ window.addEventListener("popstate",()=>{
 
 
 
-<script defer crossorigin='use-credentials' data-page-url='https://mh43ds.com' src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
 
-
+<script async='async' crossorigin='anonymous' data-page-url='https://aws.megameda.xyz' src='https://securepubads.g.doubleclick.net/tag/js/gpt.js'></script>
 <script>
-  window.googletag = window.googletag || {cmd: []};
-  
-  googletag.cmd.push(function() {
-    googletag.pubads().setTargeting('id_post_wp', ['862']);
-    if(window.location.search){
-		var queryString = window.location.search;
-		var urlParams = new URLSearchParams(queryString);
-		var utm_source = urlParams.get('utm_source');
-		var utm_medium = urlParams.get('utm_medium');
-		var utm_campaign = urlParams.get('utm_campaign');
+  window.googletag = window.googletag || { cmd: [] };
+  window.bannerSlots = {};
 
-		if(utm_source){ 
-			googletag.pubads().setTargeting('utm_source', [utm_source]);			
-		}
+  googletag.cmd.push(function () {
+    // ====== Responsive size mappings ======
+    var mappingLeaderboard = googletag.sizeMapping()
+      .addSize([1024, 0], [[970, 250], [728, 90]])         // desktop
+      .addSize([768, 0],  [[728, 90]])                     // tablet
+      .addSize([0, 0],    [[320, 100], [320, 50]])         // mobile
+      .build();
 
-		if(utm_medium){
-			googletag.pubads().setTargeting('utm_medium', [utm_medium]);			
-		}
+    var mappingRectangle = googletag.sizeMapping()
+      .addSize([1024, 0], [[336, 280], [300, 250]])        // desktop
+      .addSize([768, 0],  [[336, 280], [300, 250]])        // tablet
+      .addSize([0, 0],    [[300, 250], [320, 100], [320, 50]]) // mobile
+      .build();
 
-		if(utm_campaign){				
-			googletag.pubads().setTargeting('utm_campaign', [utm_campaign]);
-		}
-	}
-  })
-  
-// Interstitial
-googletag.cmd.push(function() {
-    var slot = googletag.defineOutOfPageSlot('/23107054726/mh43ds/mh43ds_Interstitial', googletag.enums.OutOfPageFormat.INTERSTITIAL);
-    if (slot) slot.addService(googletag.pubads());
+    var mappingSidebar = googletag.sizeMapping()
+      .addSize([1024, 0], [[300, 600], [300, 250], [160, 600]]) // desktop
+      .addSize([768, 0],  [[300, 600], [300, 250]])             // tablet
+      .addSize([0, 0],    [[300, 250]])                         // mobile
+      .build();
+
+    // ====== Define 5 banner slots ======
+    window.bannerSlots.top = googletag.defineSlot(
+      "/23275635608/Mazzen",
+      [[970, 250], [728, 90], [320, 100],[468, 60], [320, 50]],
+      "div-gpt-ad-banner-top"
+    ).defineSizeMapping(mappingLeaderboard)
+     .addService(googletag.pubads());
+
+    window.bannerSlots.mid1 = googletag.defineSlot(
+      "/23275635608/Mazzen1",
+      [[336, 280], [300, 250], [320, 100], [320, 50]],
+      "div-gpt-ad-banner-mid1"
+    ).defineSizeMapping(mappingRectangle)
+     .addService(googletag.pubads());
+
+    window.bannerSlots.mid2 = googletag.defineSlot(
+      "/23275635608/Mazzen2",
+      [[336, 280], [300, 250], [320, 100], [320, 50]],
+      "div-gpt-ad-banner-mid2"
+    ).defineSizeMapping(mappingRectangle)
+     .addService(googletag.pubads());
+
+    window.bannerSlots.sidebar = googletag.defineSlot(
+      "/23275635608/Mazzen3",
+      [[300, 600], [300, 250], [160, 600]],
+      "div-gpt-ad-banner-sidebar"
+    ).defineSizeMapping(mappingSidebar)
+     .addService(googletag.pubads());
+
+    window.bannerSlots.bottom = googletag.defineSlot(
+      "/23275635608/Mazzen4",
+      [[970, 250], [728, 90], [320, 100], [320, 50]],
+      "div-gpt-ad-banner-bottom"
+    ).defineSizeMapping(mappingLeaderboard)
+     .addService(googletag.pubads());
+
+    // ====== Page-level config ======
+    googletag.pubads().collapseEmptyDivs();
+    googletag.pubads().disableInitialLoad();   // we&#8217;ll refresh in one batch for SRA
+    googletag.pubads().enableSingleRequest();  // SRA ON
     googletag.enableServices();
-    googletag.display(slot);
-})
-
-
-// Anchor
-googletag.cmd.push(function() {
-    var anchorSlot = googletag.defineOutOfPageSlot('/23107054726/mh43ds/mh43ds_Anchor', googletag.enums.OutOfPageFormat.TOP_ANCHOR);
-    if (anchorSlot) {
-        anchorSlot.addService(googletag.pubads());
-    }
-    googletag.enableServices();
-    googletag.display(anchorSlot);
-});
-  
+  });
 </script>
+<!-- Display + SRA for top/mid1, lazy-load the rest -->
+<script>
+  window.googletag = window.googletag || { cmd: [] };
+  googletag.cmd.push(function () {
+    // Attach all slots to their containers
+    googletag.display("div-gpt-ad-banner-top");
+    googletag.display("div-gpt-ad-banner-mid1");
+    googletag.display("div-gpt-ad-banner-mid2");
+    googletag.display("div-gpt-ad-banner-sidebar");
+    googletag.display("div-gpt-ad-banner-bottom");
 
+    // 1) Load above-the-fold now (SRA together)
+    googletag.pubads().refresh([
+      bannerSlots.top,
+      bannerSlots.mid1
+    ]);
+
+    // 2) Lazy-load these three when near viewport
+    var lazyMap = {
+      "div-gpt-ad-banner-mid2": bannerSlots.mid2,
+      "div-gpt-ad-banner-sidebar": bannerSlots.sidebar,
+      "div-gpt-ad-banner-bottom": bannerSlots.bottom
+    };
+
+    function refreshSlotOnce(slot) {
+      if (!slot || slot.__loaded) return;
+      slot.__loaded = true;
+      googletag.cmd.push(function() {
+        googletag.pubads().refresh([slot]);
+      });
+    }
+
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            observer.unobserve(entry.target);
+            var slot = lazyMap[entry.target.id];
+            refreshSlotOnce(slot);
+          }
+        });
+      }, {
+        root: null,
+        rootMargin: '400px 0px', // start loading ~400px before viewport
+        threshold: 0
+      });
+
+      Object.keys(lazyMap).forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+    } else {
+      // Fallback for old browsers: load on first interaction or after 3s
+      var loaded = false;
+      function loadAllLazy() {
+        if (loaded) return;
+        loaded = true;
+        Object.keys(lazyMap).forEach(function(id) {
+          refreshSlotOnce(lazyMap[id]);
+        });
+        window.removeEventListener('scroll', loadAllLazy);
+        window.removeEventListener('resize', loadAllLazy);
+      }
+      window.addEventListener('scroll', loadAllLazy, { once: true });
+      window.addEventListener('resize', loadAllLazy, { once: true });
+      setTimeout(loadAllLazy, 2000);
+    }
+  });
+</script>
     
 </body>
 </html>
+
 
 
 
