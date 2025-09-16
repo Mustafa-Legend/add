@@ -240,63 +240,60 @@ window.addEventListener("popstate",()=>{
 
 
 
-<script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+<script async crossorigin='anonymous' data-page-url='https://mh43ds.com' src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+
 
 <script>
   window.googletag = window.googletag || {cmd: []};
   
-  // استهداف (id_post + UTM params)
   googletag.cmd.push(function() {
     googletag.pubads().setTargeting('id_post_wp', ['862']);
     if(window.location.search){
-      var queryString = window.location.search;
-      var urlParams = new URLSearchParams(queryString);
-      var utm_source = urlParams.get('utm_source');
-      var utm_medium = urlParams.get('utm_medium');
-      var utm_campaign = urlParams.get('utm_campaign');
+		var queryString = window.location.search;
+		var urlParams = new URLSearchParams(queryString);
+		var utm_source = urlParams.get('utm_source');
+		var utm_medium = urlParams.get('utm_medium');
+		var utm_campaign = urlParams.get('utm_campaign');
 
-      if(utm_source){ 
-        googletag.pubads().setTargeting('utm_source', [utm_source]);			
-      }
-      if(utm_medium){
-        googletag.pubads().setTargeting('utm_medium', [utm_medium]);			
-      }
-      if(utm_campaign){				
-        googletag.pubads().setTargeting('utm_campaign', [utm_campaign]);
-      }
-    }
-  });
+		if(utm_source){ 
+			googletag.pubads().setTargeting('utm_source', [utm_source]);			
+		}
 
-  // Interstitial (ملء الشاشة)
-  googletag.cmd.push(function() {
+		if(utm_medium){
+			googletag.pubads().setTargeting('utm_medium', [utm_medium]);			
+		}
+
+		if(utm_campaign){				
+			googletag.pubads().setTargeting('utm_campaign', [utm_campaign]);
+		}
+	}
+  })
+  
+// Interstitial
+googletag.cmd.push(function() {
     var slot = googletag.defineOutOfPageSlot('/23107054726/mh43ds/mh43ds_Interstitial', googletag.enums.OutOfPageFormat.INTERSTITIAL);
     if (slot) slot.addService(googletag.pubads());
-
-    // وضع الاختبار
-    googletag.pubads().set('adsbygoogle_test', 'on');
-
     googletag.enableServices();
     googletag.display(slot);
-  });
+})
 
-  // Anchor (أعلى الصفحة)
-  googletag.cmd.push(function() {
+
+// Anchor
+googletag.cmd.push(function() {
     var anchorSlot = googletag.defineOutOfPageSlot('/23107054726/mh43ds/mh43ds_Anchor', googletag.enums.OutOfPageFormat.TOP_ANCHOR);
     if (anchorSlot) {
-      anchorSlot.addService(googletag.pubads());
+        anchorSlot.addService(googletag.pubads());
     }
-
-    // وضع الاختبار
-    googletag.pubads().set('adsbygoogle_test', 'on');
-
     googletag.enableServices();
     googletag.display(anchorSlot);
-  });
+});
+  
 </script>
 
     
 </body>
 </html>
+
 
 
 
