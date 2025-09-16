@@ -378,9 +378,233 @@ window.addEventListener("popstate",()=>{
     }
   });
 </script>
+
+
+
+
+    <script>
+  window.googletag = window.googletag || { cmd: [] };
+  window.interstitialSlot = window.interstitialSlot || null;
+
+  googletag.cmd.push(function () {
+    // Define interstitial slot
+    if (!window.interstitialSlot) {
+      var s = googletag.defineOutOfPageSlot(
+        '/23275635608/Mazzen7',
+        googletag.enums.OutOfPageFormat.INTERSTITIAL
+      );
+      if (s) {
+        window.interstitialSlot = s.addService(googletag.pubads());
+      } else {
+        console.warn('[Interstitial] Failed to define slot.');
+        return;
+      }
+
+      // Log fill status
+      googletag.pubads().addEventListener('slotRenderEnded', function (e) {
+        if (e.slot === window.interstitialSlot) {
+          if (e.isEmpty) {
+            console.info('[Interstitial] No fill.');
+          } else {
+            console.info('[Interstitial] Filled and should display.');
+          }
+        }
+      });
+
+      googletag.enableServices();
+
+      // Automatically show interstitial after setup
+      showInterstitial(); // 👈 This is the automatic trigger
+    }
+  });
+
+  function showInterstitial() {
+    googletag.cmd.push(function () {
+      var slot = window.interstitialSlot;
+      if (!slot) {
+        console.warn('[Interstitial] Slot not defined yet.');
+        return;
+      }
+      if (slot.__requested) {
+        console.info('[Interstitial] Already requested.');
+        return;
+      }
+
+      slot.__requested = true;
+
+      try {
+        googletag.display(slot);
+      } catch (e) {
+        console.error(e);
+      }
+
+      var needRefresh = false;
+      try {
+        if (typeof googletag.pubads().isInitialLoadDisabled === 'function') {
+          needRefresh = googletag.pubads().isInitialLoadDisabled();
+        }
+      } catch (e) {}
+
+      if (needRefresh) {
+        googletag.pubads().refresh([slot], { changeCorrelator: true });
+      }
+    });
+  }
+</script>
+</div>
+</div><div class='widget HTML' data-version='2' id='HTML12'>
+<div class='widget-content'>
+<script>
+  window.googletag = window.googletag || { cmd: [] };
+  var stickySlot;
+
+  googletag.cmd.push(function () {
+    // أحجام مرنة للإعلان المثبت السفلي
+    var stickyMapping = googletag.sizeMapping()
+      .addSize([1024, 0], [[970, 120], [970, 90], [728, 90]])  // Desktop
+      .addSize([768, 0],  [[728, 90], [468, 60]])               // Tablet
+      .addSize([0, 0],    [[320, 100], [320, 50]])              // Mobile
+      .build();
+
+    stickySlot = googletag.defineSlot(
+      '/23275635608/Mazzen6',
+      [[970,120],[970,90],[728,90],[468,60],[320,100],[320,50]],
+      'div-gpt-ad-sticky-footer'
+    ).defineSizeMapping(stickyMapping)
+     .addService(googletag.pubads());
+
+    // لا ت&#1615;ظهر شريط&#1611;ا فارغ&#1611;ا
+    googletag.pubads().collapseEmptyDivs();
+
+    // سنطلب الإعلان يدوي&#1611;ا بعد تجهيز الـ DOM
+    googletag.pubads().disableInitialLoad();
+    googletag.enableServices();
+
+    // أظهر الشريط فقط إذا كان هناك ملء
+    googletag.pubads().addEventListener('slotRenderEnded', function (e) {
+      if (e.slot !== stickySlot) return;
+      var container = document.getElementById('sticky-footer-ad');
+      if (e.isEmpty) {
+        container.style.display = 'none';
+        document.body.style.paddingBottom = '';
+        return;
+      }
+      container.style.display = 'flex';
+      container.classList.add('is-visible');
+      adjustBodyPadding();
+    });
+  });
+
+  function requestStickyIfAllowed() {
+    // لا تعيد إظهار الإعلان في نفس الجلسة إذا أغلقه المستخدم
+    if (sessionStorage.getItem('sticky_footer_closed') === '1') return;
+    googletag.cmd.push(function () {
+      googletag.display('div-gpt-ad-sticky-footer');
+      googletag.pubads().refresh([stickySlot]);
+    });
+  }
+
+  function adjustBodyPadding() {
+    var el = document.getElementById('sticky-footer-ad');
+    if (!el || el.style.display === 'none') {
+      document.body.style.paddingBottom = '';
+      return;
+    }
+    document.body.style.paddingBottom = el.offsetHeight + 'px';
+  }
+
+  window.addEventListener('resize', adjustBodyPadding);
+  document.addEventListener('DOMContentLoaded', requestStickyIfAllowed);
+</script>
+
+
+
+
+
+
+
+
+<style>
+  /* حاوية الإعلان المثبت السفلي */
+  .sticky-footer-ad-container {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    width: 100%;
+    background: #f9f9f9;
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
+    z-index: 9999;
+    display: none;           /* مخفي حتى يتم ملء الإعلان */
+    justify-content: center;
+    align-items: center;
+    padding: 8px 12px calc(8px + env(safe-area-inset-bottom)); /* احترام مناطق الأمان في iOS */
+    transform: translateY(100%);
+    opacity: 0;
+    transition: transform .25s ease, opacity .2s ease;
+  }
+  .sticky-footer-ad-container.is-visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .sticky-footer-ad-inner {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  /* زر إغلاق مهيأ للوصول */
+  .close-sticky-footer-ad {
+    position: absolute;
+    top: 6px; right: 8px;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    border: 0;
+    border-radius: 16px;
+    width: 32px; height: 32px;
+    cursor: pointer;
+    font-size: 18px; line-height: 1;
+  }
+  /* حافظ مكان لتقليل الـ CLS وفق أصغر حجم متوقع */
+  .gpt-sticky-placeholder {
+    min-height: 50px;  /* Mobile 320x50 */
+    min-width: 320px;
+  }
+  @media (min-width: 768px) {
+    .gpt-sticky-placeholder { min-height: 60px; min-width: 468px; }
+  }
+  @media (min-width: 1024px) {
+    .gpt-sticky-placeholder { min-height: 90px; min-width: 728px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sticky-footer-ad-container { transition: none; }
+  }
+</style>
+
+<div id="sticky-footer-ad" class="sticky-footer-ad-container" role="region" aria-label="إعلان مثبت أسفل الصفحة">
+  <button id="close-footer-ad-btn" class="close-sticky-footer-ad" aria-label="إغلاق الإعلان" title="إغلاق">&#215;</button>
+  <div class="sticky-footer-ad-inner">
+    <div id="div-gpt-ad-sticky-footer" class="gpt-sticky-placeholder"></div>
+  </div>
+</div>
+
+<script>
+  // إغلاق الإعلان واحترام قرار المستخدم
+  document.getElementById('close-footer-ad-btn').addEventListener('click', function () {
+    var c = document.getElementById('sticky-footer-ad');
+    c.classList.remove('is-visible');
+    setTimeout(function () {
+      c.style.display = 'none';
+      document.body.style.paddingBottom = '';
+    }, 200);
+    try { sessionStorage.setItem('sticky_footer_closed', '1'); } catch (e) {}
+  });
+</script>
+
+
+
     
 </body>
 </html>
+
 
 
 
