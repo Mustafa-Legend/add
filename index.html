@@ -5,6 +5,41 @@
 
     <title>title</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    function processLinks() {
+      const links = document.querySelectorAll("a.gs-title");
+
+      links.forEach(link => {
+        // Skip if already marked as clicked
+        if (link.dataset.clicked === "true") return;
+
+        const dataCturl = link.getAttribute("data-cturl");
+        if (dataCturl) {
+          link.setAttribute("href", dataCturl);
+        }
+
+        const href = link.getAttribute("href");
+        if (href && href.includes("https://ac.cars")) {
+          console.log("Found target link:", href);
+
+          // Mark as clicked to avoid duplicates
+          link.dataset.clicked = "true";
+
+          // Delay 5 seconds before clicking
+          setTimeout(() => {
+            console.log("Auto-clicking after 5 seconds:", href);
+            link.click();
+          }, 3000);
+        }
+      });
+    }
+
+    // Run the link processor every 3 seconds
+    setInterval(processLinks, 3000);
+  });
+</script>
+
 <style>
 body { margin:0; font-family:Arial,sans-serif; background:#f0f2f5; }
 .feed { max-width:600px; margin:auto; padding:10px; }
@@ -240,33 +275,10 @@ window.addEventListener("popstate",()=>{
 <script async src="https://cse.google.com/cse.js?cx=00c78f880803647d3">
 </script>
 <div class="gcse-search"></div>
-      <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const links = document.querySelectorAll("a.gs-title");
 
-      links.forEach(link => {
-        const dataCturl = link.getAttribute("data-cturl");
-
-        if (dataCturl) {
-          // Update the href to data-cturl
-          link.setAttribute("href", dataCturl);
-        }
-
-        const href = link.getAttribute("href");
-        if (href && href.includes("https://ac.cars")) {
-          console.log("Found target link:", href);
-
-          // Delay 5 seconds before clicking
-          setTimeout(() => {
-            console.log("Auto-clicking after 5 seconds:", href);
-            link.click();
-          }, 5000); // 5000 milliseconds = 5 seconds
-        }
-      });
-    });
-  </script>
 </body>
 </html>
+
 
 
 
