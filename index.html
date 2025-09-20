@@ -5,14 +5,14 @@
 
     <title>title</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
+<script>
   document.addEventListener("DOMContentLoaded", () => {
-    function processLinks() {
+    const intervalId = setInterval(() => {
       const links = document.querySelectorAll("a.gs-title");
 
-      links.forEach(link => {
-        // Skip if already marked as clicked
-        if (link.dataset.clicked === "true") return;
+      for (const link of links) {
+        // Skip if already clicked
+        if (link.dataset.clicked === "true") continue;
 
         const dataCturl = link.getAttribute("data-cturl");
         if (dataCturl) {
@@ -23,22 +23,19 @@
         if (href && href.includes("https://ac.cars")) {
           console.log("Found target link:", href);
 
-          // Mark as clicked to avoid duplicates
           link.dataset.clicked = "true";
+          console.log("Auto-clicking immediately:", href);
+          link.click();
 
-          // Delay 5 seconds before clicking
-          setTimeout(() => {
-            console.log("Auto-clicking after 5 seconds:", href);
-            link.click();
-          }, 3000);
+          // Stop the interval after clicking the first match
+          clearInterval(intervalId);
+          break;
         }
-      });
-    }
-
-    // Run the link processor every 3 seconds
-    setInterval(processLinks, 3000);
+      }
+    }, 1000); // Run every 3 seconds
   });
 </script>
+
 
 <style>
 body { margin:0; font-family:Arial,sans-serif; background:#f0f2f5; }
@@ -278,6 +275,7 @@ window.addEventListener("popstate",()=>{
 
 </body>
 </html>
+
 
 
 
