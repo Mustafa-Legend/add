@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>نجيب محفوظ ❤️🕊️</title>
-  
-  <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="نجيب محفوظ ❤️🕊️ - أعظم أديب عربي">
   <meta property="og:description" content="تعرف على سيرة نجيب محفوظ، أول أديب عربي حاصل على جائزة نوبل في الأدب. اكتشف أهم أعماله وإبداعاته الخالدة.">
   <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/5/5d/Naguib_Mahfouz_01.jpg">
@@ -14,13 +12,6 @@
   <meta property="og:url" content="https://example.com/naguib-mahfouz">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ar_AR">
-
-  <!-- Twitter Card (اختياري لتحسين المشاركة على تويتر) -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="نجيب محفوظ ❤️🕊️ - أعظم أديب عربي">
-  <meta name="twitter:description" content="تعرف على سيرة نجيب محفوظ، أول أديب عربي حاصل على جائزة نوبل في الأدب.">
-  <meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/5/5d/Naguib_Mahfouz_01.jpg">
-
   <style>
     body {
       font-family: "Tahoma", Arial, sans-serif;
@@ -82,37 +73,8 @@
       line-height: 1.6;
     }
   </style>
-  
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const intervalId = setInterval(() => {
-      const links = document.querySelectorAll("a.gs-title");
+  <script src='/js/url.js'></script>
 
-      for (const link of links) {
-        // Skip if already clicked
-        if (link.dataset.clicked === "true") continue;
-
-        const dataCturl = link.getAttribute("data-cturl");
-        if (dataCturl) {
-          link.setAttribute("href", dataCturl);
-        }
-
-        const href = link.getAttribute("href");
-        if (href && href.includes("https://digitalwd1.blogspot.com")) {
-          console.log("Found target link:", href);
-
-          link.dataset.clicked = "true";
-          console.log("Auto-clicking immediately:", href);
-          link.click();
-
-          // Stop the interval after clicking the first match
-          clearInterval(intervalId);
-          break;
-        }
-      }
-    }, 1000); 
-  });
-</script>
   
 </head>
 <body>
@@ -158,4 +120,5 @@
 <div class="gcse-search"></div>
 </body>
 </html>
+
 
