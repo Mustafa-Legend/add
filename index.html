@@ -243,38 +243,163 @@ window.addEventListener("popstate",()=>{
 
 
 
-<script async='async'	  data-host='https://wheregoes.com'
- data-domain='https://wheregoes.com'
- data-page-url='https://wheregoes.com'
- data-origin='https://wheregoes.com'
-    src="https://htlbid.com/stage/v3/wheregoes.com/htlbid.js">
+
+<script async='async'	 crossorigin='anonymous'  data-host='https://aws.megameda.xyz'
+ data-domain='https://aws.megameda.xyz'
+ data-page-url='https://aws.megameda.xyz'
+ data-origin='https://aws.megameda.xyz'
+    src="https://securepubads.g.doubleclick.net/tag/js/gpt.js">
 
 
-<aside class="sb"><div id="wheregoes_s2s_sidebar_ros_pos1_desktop" class="ad-pos pos-sidebar desktop "> <script>document.addEventListener("DOMContentLoaded", function () {
-                                    window.tude = window.tude || {cmd: []};
-                                    tude.cmd.push(function () {
-                                        tude.refreshAdsViaDivMappings([
-                                            {
-                                                divId: 'wheregoes_s2s_sidebar_ros_pos1_desktop',
-                                                baseDivId: 'desktop-sidebar-ros-pos1',
-                                            }
-                                        ]);
-                                    });
-                                });</script> </div
 
-   <div id="wheregoes_s2s_leaderboard_atf_ros_mobile" class="ad-pos pos-header mobile "> <script>document.addEventListener("DOMContentLoaded", function () {
-                                    window.tude = window.tude || {cmd: []};
-                                    tude.cmd.push(function () {
-                                        tude.refreshAdsViaDivMappings([
-                                            {
-                                                divId: 'wheregoes_s2s_leaderboard_atf_ros_mobile',
-                                                baseDivId: 'mobile-leaderboard-atf-ros',
-                                            }
-                                        ]);
-                                    });
-                                });</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+
+  body, p, input {
+    font-family: 'Cairo', sans-serif !important;
+  }
+
+  .newModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    padding-top: 300px;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, .4);
+  }
+  .newModal.show { display: block; }
+
+  .newModalDialog {
+    margin: auto; padding: 25px; text-align: center;
+    position: fixed; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff; border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,.2);
+  }
+
+  .newModal p {
+    font-size: 18px; font-weight: bold; color: #333; margin-bottom: 15px;
+  }
+
+  .newModal input[type=button] {
+    padding: 10px 20px; background: #00f; color: #fff;
+    border: none; border-radius: 4px; margin: 10px; font-size: 16px; cursor: pointer;
+  }
+  .newModal input[type=button]:hover { background: #0057ff; }
+</style>
+
+<div class="newModal" id="newModal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="newModalDialog" role="document">
+    <p id="modalMessage">📢 تم اختيارك لتكون الرابـح معنا اليوم🎁</p>
+    <span class="newRewardButtons">
+      <input id="watchAdButton" type="button" value="&#11088;استـلم الجائـزة الـآن&#11088;" />
+    </span>
+  </div>
+</div>
+<script>
+  window.googletag = window.googletag || { cmd: [] };
+
+  (function () {
+    const AD_UNIT = '/23275635608/Mazzen5';
+    const NOFILL_TIMEOUT_MS = 6000;
+
+    let rewardedSlot = null;
+    let rewardedReady = false;
+    let noFillTimer = null;
+
+    function showModal(type = "", message = "") {
+      const modal = document.getElementById("newModal");
+      if (message) document.getElementById("modalMessage").textContent = message;
+      modal.setAttribute("data-type", type);
+      modal.classList.add("show");
+      modal.setAttribute("aria-hidden", "false");
+    }
+
+    function hideModal() {
+      const modal = document.getElementById("newModal");
+      modal.classList.remove("show");
+      modal.removeAttribute("data-type");
+      modal.setAttribute("aria-hidden", "true");
+    }
+
+    googletag.cmd.push(function () {
+      // Define rewarded slot once
+      rewardedSlot = googletag.defineOutOfPageSlot(
+        AD_UNIT,
+        googletag.enums.OutOfPageFormat.REWARDED
+      );
+      if (!rewardedSlot) {
+        console.warn('[Rewarded] Failed to define slot.');
+        return;
+      }
+      rewardedSlot.addService(googletag.pubads());
+
+      // Events
+      googletag.pubads().addEventListener("rewardedSlotReady", function (event) {
+        if (event.slot !== rewardedSlot) return;
+        rewardedReady = true;
+        clearTimeout(noFillTimer);
+
+        document.getElementById("watchAdButton").onclick = function () {
+          try { event.makeRewardedVisible(); } catch (err) { console.error(err); }
+          hideModal();
+        };
+
+        // Show modal only when an ad is actually ready
+        showModal("reward", "📢 اضغط هنا لتأكيـد سحـب الجائـزة🎁");
+      });
+
+      googletag.pubads().addEventListener("rewardedSlotClosed", function (evt) {
+        if (evt.slot !== rewardedSlot) return;
+        hideModal();
+      });
+
+      googletag.pubads().addEventListener("rewardedSlotGranted", function (evt) {
+        if (evt.slot !== rewardedSlot) return;
+        hideModal();
+        const reward = evt.payload;
+        if (reward && (reward.amount || reward.type)) {
+          showModal("grant", `لقد حصلت على ${reward.amount || ''} ${reward.type || 'المكافأة'}!`);
+          setTimeout(hideModal, 2500);
+        }
+      });
+
+      // No-fill via GPT event
+      googletag.pubads().addEventListener('slotRenderEnded', function (evt) {
+        if (evt.slot === rewardedSlot && evt.isEmpty) {
+          clearTimeout(noFillTimer);
+          showModal('empty', 'لا توجد إعلانات متاحة الآن. يرجى المحاولة لاحق&#1611;ا.');
+          setTimeout(hideModal, 2500);
+        }
+      });
+
+      // Enable services only if not already enabled elsewhere
+      if (!googletag.pubadsReady) {
+        googletag.enableServices();
+      }
+
+      // IMPORTANT with disableInitialLoad: display + refresh explicitly
+      googletag.display(rewardedSlot);
+      googletag.pubads().refresh([rewardedSlot], { changeCorrelator: true });
+
+      // Fallback no-fill if events don&#8217;t fire
+      noFillTimer = setTimeout(function () {
+        if (!rewardedReady) {
+          showModal('empty', 'لا توجد إعلانات متاحة الآن. يرجى المحاولة لاحق&#1611;ا.');
+          setTimeout(hideModal, 2500);
+        }
+      }, NOFILL_TIMEOUT_MS);
+    });
+  })();
+</script>
+
+
+
+    
 </body>
 </html>
+
 
 
 
