@@ -244,187 +244,31 @@ window.addEventListener("popstate",()=>{
 
 
 
-<script async='async'	 crossorigin='anonymous'  data-host='https:/megameda.xyz'
- data-domain='https://megameda.xyz'
- data-page-url='https://megameda.xyz'
- data-origin='https://megameda.xyz'
+<script async='async'	 crossorigin='anonymous'  data-host='https://hamariweb.com'
+ data-domain='https://hamariweb.com'
+ data-page-url='https://hamariweb.com'
+ data-origin='https://hamariweb.com'
     src="https://securepubads.g.doubleclick.net/tag/js/gpt.js">
+  <div class="row">
 
-<!-- Top leaderboard -->
-<div id="div-gpt-ad-banner-top" style="width: 970px; height: 250px;"></div>
-
-<!-- Mid1 rectangle -->
-<div id="div-gpt-ad-banner-mid1" style="width: 336px; height: 280px;"></div>
-
-<!-- Mid2 rectangle -->
-<div id="div-gpt-ad-banner-mid2" style="width: 336px; height: 280px;"></div>
-
-<!-- Sidebar -->
-<div id="div-gpt-ad-banner-sidebar" style="width: 300px; height: 600px;"></div>
-
-<!-- Bottom leaderboard -->
-<div id="div-gpt-ad-banner-bottom" style="width: 970px; height: 250px;"></div>
-
-
+        <div id="TopBanner" class="col-lg-12 mt-8 mb-8 text-center">
+        
+        <!-- /1021105/728x90_Home -->
+<div id='div-gpt-ad-1457682488308-1'>
+    <script>googletag.cmd.push(function () {googletag.display('div-gpt-ad-1457682488308-1');});</script>
+        </div>
+        <!-- /1021105/HWeb_1x1 -->
+<div id='dfpunit10'>
 <script>
-  window.googletag = window.googletag || { cmd: [] };
-  window.bannerSlots = {};
-
-  googletag.cmd.push(function () {
-    // ====== Responsive size mappings ======
-    var mappingLeaderboard = googletag.sizeMapping()
-      .addSize([1024, 0], [[970, 250], [728, 90]])         // desktop
-      .addSize([768, 0],  [[728, 90]])                     // tablet
-      .addSize([0, 0],    [[320, 100], [320, 50]])         // mobile
-      .build();
-
-    var mappingRectangle = googletag.sizeMapping()
-      .addSize([1024, 0], [[336, 280], [300, 250]])        // desktop
-      .addSize([768, 0],  [[336, 280], [300, 250]])        // tablet
-      .addSize([0, 0],    [[300, 250], [320, 100], [320, 50]]) // mobile
-      .build();
-
-    var mappingSidebar = googletag.sizeMapping()
-      .addSize([1024, 0], [[300, 600], [300, 250], [160, 600]]) // desktop
-      .addSize([768, 0],  [[300, 600], [300, 250]])             // tablet
-      .addSize([0, 0],    [[300, 250]])                         // mobile
-      .build();
-
-    // ====== Define 5 banner slots ======
-    window.bannerSlots.top = googletag.defineSlot(
-      "/23275635608/Mazzen",
-      [[970, 250], [728, 90], [320, 100],[468, 60], [320, 50]],
-      "div-gpt-ad-banner-top"
-    ).defineSizeMapping(mappingLeaderboard)
-     .addService(googletag.pubads());
-
-    window.bannerSlots.mid1 = googletag.defineSlot(
-      "/23275635608/Mazzen1",
-      [[336, 280], [300, 250], [320, 100], [320, 50]],
-      "div-gpt-ad-banner-mid1"
-    ).defineSizeMapping(mappingRectangle)
-     .addService(googletag.pubads());
-
-    window.bannerSlots.mid2 = googletag.defineSlot(
-      "/23275635608/Mazzen2",
-      [[336, 280], [300, 250], [320, 100], [320, 50]],
-      "div-gpt-ad-banner-mid2"
-    ).defineSizeMapping(mappingRectangle)
-     .addService(googletag.pubads());
-
-    window.bannerSlots.sidebar = googletag.defineSlot(
-      "/23275635608/Mazzen3",
-      [[300, 600], [300, 250], [160, 600]],
-      "div-gpt-ad-banner-sidebar"
-    ).defineSizeMapping(mappingSidebar)
-     .addService(googletag.pubads());
-
-    window.bannerSlots.bottom = googletag.defineSlot(
-      "/23275635608/Mazzen4",
-      [[970, 250], [728, 90], [320, 100], [320, 50]],
-      "div-gpt-ad-banner-bottom"
-    ).defineSizeMapping(mappingLeaderboard)
-     .addService(googletag.pubads());
-
-    // ====== Page-level config ======
-    googletag.pubads().collapseEmptyDivs();
-    googletag.pubads().disableInitialLoad();   // we&#8217;ll refresh in one batch for SRA
-    googletag.pubads().enableSingleRequest();  // SRA ON
-    googletag.enableServices();
-  });
+    googletag.cmd.push(function () { googletag.display('dfpunit10'); });
 </script>
-<!-- Display + SRA for top/mid1, lazy-load the rest -->
-<script>
-  window.googletag = window.googletag || { cmd: [] };
-  googletag.cmd.push(function () {
-    // Attach all slots to their containers
-    googletag.display("div-gpt-ad-banner-top");
-    googletag.display("div-gpt-ad-banner-mid1");
-    googletag.display("div-gpt-ad-banner-mid2");
-    googletag.display("div-gpt-ad-banner-sidebar");
-    googletag.display("div-gpt-ad-banner-bottom");
-
-    // 1) Load above-the-fold now (SRA together)
-    googletag.pubads().refresh([
-      bannerSlots.top,
-      bannerSlots.mid1
-    ]);
-
-    // 2) Lazy-load these three when near viewport
-    var lazyMap = {
-      "div-gpt-ad-banner-mid2": bannerSlots.mid2,
-      "div-gpt-ad-banner-sidebar": bannerSlots.sidebar,
-      "div-gpt-ad-banner-bottom": bannerSlots.bottom
-    };
-
-    function refreshSlotOnce(slot) {
-      if (!slot || slot.__loaded) return;
-      slot.__loaded = true;
-      googletag.cmd.push(function() {
-        googletag.pubads().refresh([slot]);
-      });
-    }
-
-    if ('IntersectionObserver' in window) {
-      var observer = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            observer.unobserve(entry.target);
-            var slot = lazyMap[entry.target.id];
-            refreshSlotOnce(slot);
-          }
-        });
-      }, {
-        root: null,
-        rootMargin: '400px 0px', // start loading ~400px before viewport
-        threshold: 0
-      });
-
-      Object.keys(lazyMap).forEach(function(id) {
-        var el = document.getElementById(id);
-        if (el) observer.observe(el);
-      });
-    } else {
-      // Fallback for old browsers: load on first interaction or after 3s
-      var loaded = false;
-      function loadAllLazy() {
-        if (loaded) return;
-        loaded = true;
-        Object.keys(lazyMap).forEach(function(id) {
-          refreshSlotOnce(lazyMap[id]);
-        });
-        window.removeEventListener('scroll', loadAllLazy);
-        window.removeEventListener('resize', loadAllLazy);
-      }
-      window.addEventListener('scroll', loadAllLazy, { once: true });
-      window.addEventListener('resize', loadAllLazy, { once: true });
-      setTimeout(loadAllLazy, 2000);
-    }
-  });
-</script>
-
-
+</div>
+        </div>
+        </div>
 
     
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
