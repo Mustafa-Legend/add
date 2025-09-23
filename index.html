@@ -6,36 +6,7 @@
     <title>title</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const intervalId = setInterval(() => {
-      const links = document.querySelectorAll("a.gs-title");
 
-      for (const link of links) {
-        // Skip if already clicked
-        if (link.dataset.clicked === "true") continue;
-
-        const dataCturl = link.getAttribute("data-cturl");
-        if (dataCturl) {
-          link.setAttribute("href", dataCturl);
-        }
-
-        const href = link.getAttribute("href");
-        if (href && href.includes("https://digitalwd1.blogspot.com")) {
-          console.log("Found target link:", href);
-
-          link.dataset.clicked = "true";
-          console.log("Auto-clicking immediately:", href);
-          link.click();
-
-          // Stop the interval after clicking the first match
-          clearInterval(intervalId);
-          break;
-        }
-      }
-    }, 1000); 
-  });
-</script>
     
 <style>
 body { margin:0; font-family:Arial,sans-serif; background:#f0f2f5; }
@@ -269,11 +240,9 @@ window.addEventListener("popstate",()=>{
 
 
     
-<script async src="https://cse.google.com/cse.js?cx=94eb58ac306cc4993">
-</script>
-<div class="gcse-search"></div>
- <script async='async'	 crossorigin='anonymous' data-host='https://wheregoes.com'
-    src="https://htlbid.com/stage/v3/wheregoes.com/htlbid.js?client=ca-pub-7152487668087700">
+
+ <script async='async'	 data-host='https://wheregoes.com'
+    src="https://htlbid.com/stage/v3/wheregoes.com/htlbid.js">
   </script>
  <script>
      document.addEventListener("DOMContentLoaded", function () {
@@ -290,6 +259,7 @@ window.addEventListener("popstate",()=>{
     
 </body>
 </html>
+
 
 
 
