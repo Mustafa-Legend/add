@@ -5,7 +5,7 @@
 
     <title>title</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-adsense-account" content="ca-pub-7152487668087700">
+<meta name="google-adsense-account" content="ca-pub-9386019333077780">
 
     
 <style>
@@ -252,146 +252,141 @@ window.addEventListener("popstate",()=>{
 
 
 
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
-
-  body, p, input {
-    font-family: 'Cairo', sans-serif !important;
-  }
-
-  .newModal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    padding-top: 300px;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0, 0, 0, .4);
-  }
-  .newModal.show { display: block; }
-
-  .newModalDialog {
-    margin: auto; padding: 25px; text-align: center;
-    position: fixed; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff; border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,.2);
-  }
-
-  .newModal p {
-    font-size: 18px; font-weight: bold; color: #333; margin-bottom: 15px;
-  }
-
-  .newModal input[type=button] {
-    padding: 10px 20px; background: #00f; color: #fff;
-    border: none; border-radius: 4px; margin: 10px; font-size: 16px; cursor: pointer;
-  }
-  .newModal input[type=button]:hover { background: #0057ff; }
-</style>
-
-<div class="newModal" id="newModal" aria-hidden="true" role="dialog" aria-modal="true">
-  <div class="newModalDialog" role="document">
-    <p id="modalMessage">📢 تم اختيارك لتكون الرابـح معنا اليوم🎁</p>
-    <span class="newRewardButtons">
-      <input id="watchAdButton" type="button" value="&#11088;استـلم الجائـزة الـآن&#11088;" />
-    </span>
-  </div>
-</div>
 <script>
   window.googletag = window.googletag || { cmd: [] };
+  window.bannerSlots = {};
 
-  (function () {
-    const AD_UNIT = '/23275635608/Mazzen5';
-    const NOFILL_TIMEOUT_MS = 6000;
+  googletag.cmd.push(function () {
+    // ====== Responsive size mappings ======
+    var mappingLeaderboard = googletag.sizeMapping()
+      .addSize([1024, 0], [[970, 250], [728, 90]])         // desktop
+      .addSize([768, 0],  [[728, 90]])                     // tablet
+      .addSize([0, 0],    [[320, 100], [320, 50]])         // mobile
+      .build();
 
-    let rewardedSlot = null;
-    let rewardedReady = false;
-    let noFillTimer = null;
+    var mappingRectangle = googletag.sizeMapping()
+      .addSize([1024, 0], [[336, 280], [300, 250]])        // desktop
+      .addSize([768, 0],  [[336, 280], [300, 250]])        // tablet
+      .addSize([0, 0],    [[300, 250], [320, 100], [320, 50]]) // mobile
+      .build();
 
-    function showModal(type = "", message = "") {
-      const modal = document.getElementById("newModal");
-      if (message) document.getElementById("modalMessage").textContent = message;
-      modal.setAttribute("data-type", type);
-      modal.classList.add("show");
-      modal.setAttribute("aria-hidden", "false");
+    var mappingSidebar = googletag.sizeMapping()
+      .addSize([1024, 0], [[300, 600], [300, 250], [160, 600]]) // desktop
+      .addSize([768, 0],  [[300, 600], [300, 250]])             // tablet
+      .addSize([0, 0],    [[300, 250]])                         // mobile
+      .build();
+
+    // ====== Define 5 banner slots ======
+    window.bannerSlots.top = googletag.defineSlot(
+      "/23275635608/Mazzen",
+      [[970, 250], [728, 90], [320, 100],[468, 60], [320, 50]],
+      "div-gpt-ad-banner-top"
+    ).defineSizeMapping(mappingLeaderboard)
+     .addService(googletag.pubads());
+
+    window.bannerSlots.mid1 = googletag.defineSlot(
+      "/23275635608/Mazzen1",
+      [[336, 280], [300, 250], [320, 100], [320, 50]],
+      "div-gpt-ad-banner-mid1"
+    ).defineSizeMapping(mappingRectangle)
+     .addService(googletag.pubads());
+
+    window.bannerSlots.mid2 = googletag.defineSlot(
+      "/23275635608/Mazzen2",
+      [[336, 280], [300, 250], [320, 100], [320, 50]],
+      "div-gpt-ad-banner-mid2"
+    ).defineSizeMapping(mappingRectangle)
+     .addService(googletag.pubads());
+
+    window.bannerSlots.sidebar = googletag.defineSlot(
+      "/23275635608/Mazzen3",
+      [[300, 600], [300, 250], [160, 600]],
+      "div-gpt-ad-banner-sidebar"
+    ).defineSizeMapping(mappingSidebar)
+     .addService(googletag.pubads());
+
+    window.bannerSlots.bottom = googletag.defineSlot(
+      "/23275635608/Mazzen4",
+      [[970, 250], [728, 90], [320, 100], [320, 50]],
+      "div-gpt-ad-banner-bottom"
+    ).defineSizeMapping(mappingLeaderboard)
+     .addService(googletag.pubads());
+
+    // ====== Page-level config ======
+    googletag.pubads().collapseEmptyDivs();
+    googletag.pubads().disableInitialLoad();   // we&#8217;ll refresh in one batch for SRA
+    googletag.pubads().enableSingleRequest();  // SRA ON
+    googletag.enableServices();
+  });
+</script>
+<!-- Display + SRA for top/mid1, lazy-load the rest -->
+<script>
+  window.googletag = window.googletag || { cmd: [] };
+  googletag.cmd.push(function () {
+    // Attach all slots to their containers
+    googletag.display("div-gpt-ad-banner-top");
+    googletag.display("div-gpt-ad-banner-mid1");
+    googletag.display("div-gpt-ad-banner-mid2");
+    googletag.display("div-gpt-ad-banner-sidebar");
+    googletag.display("div-gpt-ad-banner-bottom");
+
+    // 1) Load above-the-fold now (SRA together)
+    googletag.pubads().refresh([
+      bannerSlots.top,
+      bannerSlots.mid1
+    ]);
+
+    // 2) Lazy-load these three when near viewport
+    var lazyMap = {
+      "div-gpt-ad-banner-mid2": bannerSlots.mid2,
+      "div-gpt-ad-banner-sidebar": bannerSlots.sidebar,
+      "div-gpt-ad-banner-bottom": bannerSlots.bottom
+    };
+
+    function refreshSlotOnce(slot) {
+      if (!slot || slot.__loaded) return;
+      slot.__loaded = true;
+      googletag.cmd.push(function() {
+        googletag.pubads().refresh([slot]);
+      });
     }
 
-    function hideModal() {
-      const modal = document.getElementById("newModal");
-      modal.classList.remove("show");
-      modal.removeAttribute("data-type");
-      modal.setAttribute("aria-hidden", "true");
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            observer.unobserve(entry.target);
+            var slot = lazyMap[entry.target.id];
+            refreshSlotOnce(slot);
+          }
+        });
+      }, {
+        root: null,
+        rootMargin: '400px 0px', // start loading ~400px before viewport
+        threshold: 0
+      });
+
+      Object.keys(lazyMap).forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+    } else {
+      // Fallback for old browsers: load on first interaction or after 3s
+      var loaded = false;
+      function loadAllLazy() {
+        if (loaded) return;
+        loaded = true;
+        Object.keys(lazyMap).forEach(function(id) {
+          refreshSlotOnce(lazyMap[id]);
+        });
+        window.removeEventListener('scroll', loadAllLazy);
+        window.removeEventListener('resize', loadAllLazy);
+      }
+      window.addEventListener('scroll', loadAllLazy, { once: true });
+      window.addEventListener('resize', loadAllLazy, { once: true });
+      setTimeout(loadAllLazy, 3000);
     }
-
-    googletag.cmd.push(function () {
-      // Define rewarded slot once
-      rewardedSlot = googletag.defineOutOfPageSlot(
-        AD_UNIT,
-        googletag.enums.OutOfPageFormat.REWARDED
-      );
-      if (!rewardedSlot) {
-        console.warn('[Rewarded] Failed to define slot.');
-        return;
-      }
-      rewardedSlot.addService(googletag.pubads());
-
-      // Events
-      googletag.pubads().addEventListener("rewardedSlotReady", function (event) {
-        if (event.slot !== rewardedSlot) return;
-        rewardedReady = true;
-        clearTimeout(noFillTimer);
-
-        document.getElementById("watchAdButton").onclick = function () {
-          try { event.makeRewardedVisible(); } catch (err) { console.error(err); }
-          hideModal();
-        };
-
-        // Show modal only when an ad is actually ready
-        showModal("reward", "📢 اضغط هنا لتأكيـد سحـب الجائـزة🎁");
-      });
-
-      googletag.pubads().addEventListener("rewardedSlotClosed", function (evt) {
-        if (evt.slot !== rewardedSlot) return;
-        hideModal();
-      });
-
-      googletag.pubads().addEventListener("rewardedSlotGranted", function (evt) {
-        if (evt.slot !== rewardedSlot) return;
-        hideModal();
-        const reward = evt.payload;
-        if (reward && (reward.amount || reward.type)) {
-          showModal("grant", `لقد حصلت على ${reward.amount || ''} ${reward.type || 'المكافأة'}!`);
-          setTimeout(hideModal, 2500);
-        }
-      });
-
-      // No-fill via GPT event
-      googletag.pubads().addEventListener('slotRenderEnded', function (evt) {
-        if (evt.slot === rewardedSlot && evt.isEmpty) {
-          clearTimeout(noFillTimer);
-          showModal('empty', 'لا توجد إعلانات متاحة الآن. يرجى المحاولة لاحق&#1611;ا.');
-          setTimeout(hideModal, 2500);
-        }
-      });
-
-      // Enable services only if not already enabled elsewhere
-      if (!googletag.pubadsReady) {
-        googletag.enableServices();
-      }
-
-      // IMPORTANT with disableInitialLoad: display + refresh explicitly
-      googletag.display(rewardedSlot);
-      googletag.pubads().refresh([rewardedSlot], { changeCorrelator: true });
-
-      // Fallback no-fill if events don&#8217;t fire
-      noFillTimer = setTimeout(function () {
-        if (!rewardedReady) {
-          showModal('empty', 'لا توجد إعلانات متاحة الآن. يرجى المحاولة لاحق&#1611;ا.');
-          setTimeout(hideModal, 2500);
-        }
-      }, NOFILL_TIMEOUT_MS);
-    });
-  })();
+  });
 </script>
 
 
@@ -399,6 +394,7 @@ window.addEventListener("popstate",()=>{
     
 </body>
 </html>
+
 
 
 
