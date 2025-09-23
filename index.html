@@ -244,31 +244,83 @@ window.addEventListener("popstate",()=>{
 
 
 
-<script async='async'	 crossorigin='anonymous'  data-host='https://hamariweb.com'
- data-domain='https://hamariweb.com'
- data-page-url='https://hamariweb.com'
- data-origin='https://hamariweb.com'
+<script async='async' crossorigin='anonymous'  data-host='https://hamariweb.com' data-domain='https://hamariweb.com' data-page-url='https://hamariweb.com' data-origin='https://hamariweb.com'
     src="https://securepubads.g.doubleclick.net/tag/js/gpt.js">
-  <div class="row">
 
-        <div id="TopBanner" class="col-lg-12 mt-8 mb-8 text-center">
-        
-        <!-- /1021105/728x90_Home -->
-<div id='div-gpt-ad-1457682488308-1'>
-    <script>googletag.cmd.push(function () {googletag.display('div-gpt-ad-1457682488308-1');});</script>
-        </div>
-        <!-- /1021105/HWeb_1x1 -->
-<div id='dfpunit10'>
+<!-- تحميل مكتبة GPT -->
 <script>
-    googletag.cmd.push(function () { googletag.display('dfpunit10'); });
+  window.googletag = window.googletag || {cmd: []};
+
+  googletag.cmd.push(function() {
+    // Top Banner 728x90
+    googletag.defineSlot('/1021105/banner-top', [728, 90], 'div-gpt-ad-banner-top')
+             .addService(googletag.pubads());
+
+    // Mid Banner 1 (300x250 مثال)
+    googletag.defineSlot('/1021105/banner-mid1', [300, 250], 'div-gpt-ad-banner-mid1')
+             .addService(googletag.pubads());
+
+    // Mid Banner 2 (300x250 مثال)
+    googletag.defineSlot('/1021105/banner-mid2', [300, 250], 'div-gpt-ad-banner-mid2')
+             .addService(googletag.pubads());
+
+    // Sidebar (300x600 مثال)
+    googletag.defineSlot('/1021105/banner-sidebar', [300, 600], 'div-gpt-ad-banner-sidebar')
+             .addService(googletag.pubads());
+
+    // Bottom Banner 728x90
+    googletag.defineSlot('/1021105/banner-bottom', [728, 90], 'div-gpt-ad-banner-bottom')
+             .addService(googletag.pubads());
+
+    // تفعيل الخدمات
+    googletag.enableServices();
+  });
 </script>
+
+<div class="container">
+
+  <!-- ✅ Top Banner -->
+  <div id="div-gpt-ad-banner-top" style="width:728px; height:90px; margin:20px auto; text-align:center;">
+    <script>
+      googletag.cmd.push(function() { googletag.display('div-gpt-ad-banner-top'); });
+    </script>
+  </div>
+
+  <!-- ✅ Mid Banner 1 -->
+  <div id="div-gpt-ad-banner-mid1" style="width:300px; height:250px; margin:20px auto; text-align:center;">
+    <script>
+      googletag.cmd.push(function() { googletag.display('div-gpt-ad-banner-mid1'); });
+    </script>
+  </div>
+
+  <!-- ✅ Mid Banner 2 -->
+  <div id="div-gpt-ad-banner-mid2" style="width:300px; height:250px; margin:20px auto; text-align:center;">
+    <script>
+      googletag.cmd.push(function() { googletag.display('div-gpt-ad-banner-mid2'); });
+    </script>
+  </div>
+
+  <!-- ✅ Sidebar Banner -->
+  <div id="div-gpt-ad-banner-sidebar" style="width:300px; height:600px; float:right; margin:20px;">
+    <script>
+      googletag.cmd.push(function() { googletag.display('div-gpt-ad-banner-sidebar'); });
+    </script>
+  </div>
+
+  <!-- ✅ Bottom Banner -->
+  <div id="div-gpt-ad-banner-bottom" style="width:728px; height:90px; margin:20px auto; text-align:center;">
+    <script>
+      googletag.cmd.push(function() { googletag.display('div-gpt-ad-banner-bottom'); });
+    </script>
+  </div>
+
 </div>
-        </div>
-        </div>
+
 
     
 </body>
 </html>
+
 
 
 
